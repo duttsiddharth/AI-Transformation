@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIOps - Operational Transition Presentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+    
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      page-break-after: always;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+    
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .slide-header {
+      position: absolute;
+      top: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .logo-text {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .slide-number {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    
+    h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: #f8fafc;
+    }
+    
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #06b6d4;
+    }
+    
+    .subtitle {
+      font-size: 22px;
+      color: #94a3b8;
+      font-weight: 400;
+      margin-bottom: 48px;
+    }
+    
+    .presenter-info {
+      display: flex;
+      gap: 48px;
+      margin-top: 48px;
+      font-size: 14px;
+      color: #64748b;
+    }
+    
+    .presenter-info div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .presenter-info strong {
+      color: #f8fafc;
+      font-weight: 600;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 32px;
+    }
+    
+    .content-full {
+      width: 100%;
+    }
+    
+    .metric-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin: 32px 0;
+    }
+    
+    .metric-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: #06b6d4;
+      margin-bottom: 8px;
+    }
+    
+    .metric-value.positive {
+      color: #10b981;
+    }
+    
+    .metric-value.negative {
+      color: #ef4444;
+    }
+    
+    .metric-label {
+      font-size: 13px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    
+    .metric-change {
+      font-size: 12px;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+    
+    .bullet-list {
+      list-style: none;
+      space-y: 16px;
+    }
+    
+    .bullet-list li {
+      position: relative;
+      padding-left: 32px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    
+    .bullet-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #06b6d4;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .phase-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .phase-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    
+    .phase-badge {
+      background: rgba(6, 182, 212, 0.1);
+      color: #06b6d4;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+    
+    .chart-container {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 24px 0;
+    }
+    
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 200px;
+      gap: 16px;
+    }
+    
+    .bar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .bar {
+      width: 100%;
+      background: linear-gradient(to top, #06b6d4, #3b82f6);
+      border-radius: 6px 6px 0 0;
+      min-height: 20px;
+      transition: height 0.3s ease;
+    }
+    
+    .bar.baseline {
+      background: #ef4444;
+    }
+    
+    .bar.target {
+      background: #10b981;
+    }
+    
+    .bar-label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+    }
+    
+    .bar-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    
+    .highlight-box {
+      background: rgba(6, 182, 212, 0.1);
+      border-left: 4px solid #06b6d4;
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    
+    .highlight-box p {
+      font-size: 18px;
+      color: #cbd5e1;
+      font-style: italic;
+    }
+    
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    
+    .stakeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    
+    .stakeholder-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .stakeholder-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    
+    .stakeholder-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+    
+    .stakeholder-status {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 8px;
+    }
+    
+    .status-champion {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+    
+    .status-supportive {
+      background: rgba(6, 182, 212, 0.2);
+      color: #06b6d4;
+    }
+    
+    .status-neutral {
+      background: rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+    }
+    
+    .quick-win-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .quick-win-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .quick-win-number {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    
+    .quick-win-content {
+      flex: 1;
+    }
+    
+    .quick-win-title {
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+    
+    .quick-win-impact {
+      font-size: 13px;
+      color: #10b981;
+    }
+    
+    .roadmap-timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #06b6d4, #3b82f6);
+    }
+    
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 32px;
+      padding-left: 32px;
+    }
+    
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      left: -34px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      background: #06b6d4;
+      border-radius: 50%;
+      border: 3px solid #0f172a;
+    }
+    
+    .roadmap-item.completed::before {
+      background: #10b981;
+    }
+    
+    .roadmap-phase {
+      font-size: 12px;
+      color: #06b6d4;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .roadmap-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 8px;
+    }
+    
+    .roadmap-desc {
+      font-size: 15px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    
+    .roi-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin: 48px 0;
+    }
+    
+    .roi-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    
+    .roi-value {
+      font-size: 42px;
+      font-weight: 800;
+      color: #10b981;
+      margin-bottom: 8px;
+    }
+    
+    .roi-label {
+      font-size: 14px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    
+    .action-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    
+    .action-item {
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    
+    .action-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: #06b6d4;
+      margin-bottom: 8px;
+    }
+    
+    .action-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 8px;
+    }
+    
+    .action-desc {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    
+    .footer {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+    
+    @media print {
+      .slide {
+        page-break-after: always;
+        height: 100vh;
+      }
+    }
+    
+    .navigation {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 1000;
+    }
+    
+    .nav-btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(100, 116, 139, 0.3);
+      color: #f8fafc;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: #06b6d4;
+    }
+    
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Slide 1: Title Slide -->
+  <div class="slide" id="slide1">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">1 / 14</div>
+    </div>
+    
+    <h1>90-Day Operational<br>Transformation Program</h1>
+    <p class="subtitle">AI-Driven Operations Modernization: From Reactive Firefighting to Predictive Excellence</p>
+    
+    <div class="presenter-info">
+      <div>
+        <strong>Program Owner</strong>
+        <span>AIOps Transformation Lead</span>
+      </div>
+      <div>
+        <strong>Duration</strong>
+        <span>90 Days (Days 1-90)</span>
+      </div>
+      <div>
+        <strong>Presented</strong>
+        <span>Executive Steering Committee</span>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>CONFIDENTIAL - Internal Use Only</span>
+      <span>Q1 2026</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: Executive Summary -->
+  <div class="slide" id="slide2">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">2 / 14</div>
+    </div>
+    
+    <h2>Executive Summary</h2>
+    
+    <div class="highlight-box">
+      <p>"In 90 days, we transformed from reactive firefighting to proactive, AI-driven operations. We've reduced MTTR by over 86%, eliminated 83% of alert noise, and built a governance model that ensures sustained operational excellence."</p>
+    </div>
+    
+    <div class="metric-cards">
+      <div class="metric-card">
+        <div class="metric-value negative">180m</div>
+        <div class="metric-label">MTTR (Baseline)</div>
+        <div class="metric-change" style="color: #ef4444;">→ 25m Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">48K</div>
+        <div class="metric-label">Monthly Alerts</div>
+        <div class="metric-change" style="color: #ef4444;">→ 8.2K Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">5%</div>
+        <div class="metric-label">Automation Coverage</div>
+        <div class="metric-change" style="color: #10b981;">→ 65%+ Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value positive">$310K+</div>
+        <div class="metric-label">Annual Savings</div>
+        <div class="metric-change" style="color: #10b981;">4.5 Month Payback</div>
+      </div>
+    </div>
+    
+    <ul class="bullet-list">
+      <li>Complete visibility across Network, Cloud, Application, and Infrastructure layers with zero blindspots</li>
+      <li>Self-healing automation deployed for 65% of repeatable incidents; NOC now supervises rather than dispatches</li>
+      <li>Unified observability platform consolidating Splunk, Dynatrace, and CloudWatch into single pane of glass</li>
+      <li>Stakeholder alignment achieved across NOC, Infrastructure, Cloud, Security, and Executive Leadership</li>
+    </ul>
+    
+    <div class="footer">
+      <span>Executive Summary</span>
+      <span>AIOps Nexus Program</span>
+    </div>
+  </div>
+
+  <!-- Slide 3: Current State Assessment -->
+  <div class="slide" id="slide3">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">3 / 14</div>
+    </div>
+    
+    <h2>Current State Assessment</h2>
+    <p class="subtitle">Fragmented Observability and Noisy Alerts Impair Resolution Speeds</p>
+    
+    <div class="two-column">
+      <div>
+        <h3>🔴 Critical Gaps Identified</h3>
+        <ul class="bullet-list">
+          <li><strong>Network Observability:</strong> Siloed legacy tools (SolarWinds) with flapping alerts and lack of application context</li>
+          <li><strong>Cloud & Infrastructure:</strong> Decent coverage via AWS CloudWatch, but lacks centralized multi-cloud intelligence plane</li>
+          <li><strong>Application Monitoring:</strong> Dynatrace is robust but not fully integrated with downstream Splunk correlation</li>
+          <li><strong>Event Correlation:</strong> Zero automated correlation. Every minor alert creates standalone ticket</li>
+          <li><strong>Unmonitored Assets:</strong> 2+ critical systems (Legacy LDAP, Financial DB Clusters) completely blind</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3>📊 Observability Maturity (1-5 Scale)</h3>
+        <div class="chart-container">
+          <div class="bar-chart">
+            <div class="bar-item">
+              <div class="bar-value">2.0</div>
+              <div class="bar" style="height: 40%;"></div>
+              <div class="bar-label">Network</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-value">3.0</div>
+              <div class="bar" style="height: 60%;"></div>
+              <div class="bar-label">Cloud</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-value">4.2</div>
+              <div class="bar" style="height: 84%;"></div>
+              <div class="bar-label">App (APM)</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-value">1.5</div>
+              <div class="bar" style="height: 30%;"></div>
+              <div class="bar-label">AI Correlation</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-value">2.5</div>
+              <div class="bar" style="height: 50%;"></div>
+              <div class="bar-label">Dashboards</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p style="font-size: 15px;"><strong>Manual correlation is the primary bottleneck</strong> driving up Mean Time to Resolution (MTTR). NOC teams spend 60% of time manually linking related incidents.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Current State Assessment</span>
+      <span>Day 0 Baseline</span>
+    </div>
+  </div>
+
+  <!-- Slide 4: Phase 1 - Assessment (Days 1-30) -->
+  <div class="slide" id="slide4">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">4 / 14</div>
+    </div>
+    
+    <h2>Phase 1: Assessment & Foundation</h2>
+    <p class="subtitle">Days 1-30: Understanding Current Environment, Building Relationships, Establishing Baselines</p>
+    
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title">🎯 Key Deliverables & Outcomes</div>
+        <div class="phase-badge">Days 1-30</div>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">Environment Discovery</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li>Mapped 100% of critical infrastructure assets across Network, Cloud, App, and Infra layers</li>
+            <li>Identified 6 high-priority systems; 2 unmonitored critical blindspots flagged</li>
+            <li>Documented current tooling landscape: Splunk, Dynatrace, SolarWinds, CloudWatch</li>
+          </ul>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 24px 0 12px 0;">Stakeholder Alignment</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li>Established relationships with NOC, Infrastructure, Cloud, Security, and Leadership teams</li>
+            <li>Moved 3 skeptical stakeholders to supportive through credibility-building quick wins</li>
+            <li>Average team alignment score: 65% (up from 45% baseline)</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">KPI Baseline Dashboard</h3>
+          <div class="metric-cards" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="metric-card" style="padding: 16px;">
+              <div class="metric-value" style="font-size: 24px;">180m</div>
+              <div class="metric-label" style="font-size: 10px;">MTTR Baseline</div>
+            </div>
+            <div class="metric-card" style="padding: 16px;">
+              <div class="metric-value" style="font-size: 24px;">48K</div>
+              <div class="metric-label" style="font-size: 10px;">Alerts/Month</div>
+            </div>
+            <div class="metric-card" style="padding: 16px;">
+              <div class="metric-value" style="font-size: 24px;">96.5%</div>
+              <div class="metric-label" style="font-size: 10px;">SLA Baseline</div>
+            </div>
+            <div class="metric-card" style="padding: 16px;">
+              <div class="metric-value" style="font-size: 24px;">5%</div>
+              <div class="metric-label" style="font-size: 10px;">Automation</div>
+            </div>
+          </div>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 20px 0 12px 0;">Quick Wins Executed</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li><strong>Alert Noise Reduced:</strong> Muted Cisco SD-WAN flapping alerts (24% reduction)</li>
+            <li><strong>Dashboards Consolidated:</strong> Built unified service topology views</li>
+            <li><strong>Tool Gaps Documented:</strong> $140K consolidation opportunity identified</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Phase 1: Assessment</span>
+      <span>Day 30 Milestone</span>
+    </div>
+  </div>
+
+  <!-- Slide 5: Phase 2 - Modernization (Days 30-60) -->
+  <div class="slide" id="slide5">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">5 / 14</div>
+    </div>
+    
+    <h2>Phase 2: Modernization & Early Transformation</h2>
+    <p class="subtitle">Days 30-60: Monitoring Modernization, Automation Deployment, Governance Framework</p>
+    
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title">🚀 Key Deliverables & Outcomes</div>
+        <div class="phase-badge">Days 30-60</div>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">Monitoring Modernization</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li>Unified dashboards combining Splunk logs + Dynatrace traces + CloudWatch metrics</li>
+            <li>Service dependency maps built for 100% of critical applications</li>
+            <li>Zero blindspots: Legacy LDAP and Financial DB clusters now fully monitored</li>
+            <li>Cross-tier visibility established; MTTR identification improved by 40%</li>
+          </ul>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 24px 0 12px 0;">Automation Pipelines Live</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li><strong>Auto-Ticket Enrichment:</strong> JVM thread dumps, log attachments, error context</li>
+            <li><strong>Health Checks:</strong> Automated disk space monitoring and rotation</li>
+            <li><strong>Intelligent Suppression:</strong> Context-aware alert muting during maintenance</li>
+            <li>12 Sev-3 tickets/month eliminated; 18 min saved per Sev-1</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">Alert Fatigue Reduction</h3>
+          <div class="chart-container" style="padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span style="font-size: 13px; color: #94a3b8;">Alert Volume Reduction</span>
+              <span style="font-size: 20px; font-weight: 800; color: #10b981;">-45%</span>
+            </div>
+            <div style="background: #1e293b; height: 24px; border-radius: 12px; overflow: hidden; display: flex;">
+              <div style="background: #ef4444; width: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;">48K Baseline</div>
+            </div>
+            <div style="margin-top: 8px; background: #1e293b; height: 24px; border-radius: 12px; overflow: hidden; display: flex;">
+              <div style="background: #10b981; width: 55%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;">26K Day 60</div>
+            </div>
+          </div>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 20px 0 12px 0;">Governance Framework</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li><strong>Escalation Paths:</strong> Refined and documented for all severity levels</li>
+            <li><strong>Major Incident SOPs:</strong> Standardized playbooks for P1/P2 events</li>
+            <li><strong>RCA Process:</strong> Strengthened with automated data collection</li>
+            <li><strong>SLA Governance:</strong> Real-time tracking and alerting on breaches</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Phase 2: Modernization</span>
+      <span>Day 60 Milestone</span>
+    </div>
+  </div>
+
+  <!-- Slide 6: Phase 3 - Optimization (Days 60-90) -->
+  <div class="slide" id="slide6">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">6 / 14</div>
+    </div>
+    
+    <h2>Phase 3: Execution & Operational Impact</h2>
+    <p class="subtitle">Days 60-90: Self-Healing Deployment, Team Alignment, Executive Governance</p>
+    
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title">✅ Key Deliverables & Outcomes</div>
+        <div class="phase-badge">Days 60-90</div>
+      </div>
+      
+      <div class="two-column">
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">Self-Healing Workflows</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li><strong>Automated Disk Expansion:</strong> AWS EBS volumes auto-expand at 90% threshold</li>
+            <li><strong>Container Orchestration:</strong> Auto-restart on CrashLoopBackOff with log capture</li>
+            <li><strong>Log Rotation:</strong> Automated cleanup preventing disk exhaustion</li>
+            <li><strong>Intelligent Routing:</strong> Auto-escalation based on service criticality</li>
+          </ul>
+          <div class="highlight-box" style="margin-top: 16px;">
+            <p style="font-size: 14px;"><strong>Result:</strong> 80% reduction in manual dispatch; NOC shifts from dispatchers to automation supervisors</p>
+          </div>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 24px 0 12px 0;">Observability Strategy</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li>Splunk ITSI anomaly detection activated across all tiers</li>
+            <li>Unified logs, metrics, traces, and topology visibility</li>
+            <li>AI-driven event correlation reducing false positives by 60%</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 style="color: #f8fafc; font-size: 16px; margin-bottom: 12px;">Team Alignment Achieved</h3>
+          <div class="stakeholder-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="stakeholder-card" style="padding: 16px;">
+              <div class="stakeholder-icon">🔧</div>
+              <div class="stakeholder-name">NOC Teams</div>
+              <div class="stakeholder-status status-champion">Champion</div>
+            </div>
+            <div class="stakeholder-card" style="padding: 16px;">
+              <div class="stakeholder-icon">☁️</div>
+              <div class="stakeholder-name">Cloud Teams</div>
+              <div class="stakeholder-status status-champion">Champion</div>
+            </div>
+            <div class="stakeholder-card" style="padding: 16px;">
+              <div class="stakeholder-icon">🖥️</div>
+              <div class="stakeholder-name">Infrastructure</div>
+              <div class="stakeholder-status status-supportive">Supportive</div>
+            </div>
+            <div class="stakeholder-card" style="padding: 16px;">
+              <div class="stakeholder-icon">🔒</div>
+              <div class="stakeholder-name">Security</div>
+              <div class="stakeholder-status status-supportive">Supportive</div>
+            </div>
+          </div>
+          
+          <h3 style="color: #f8fafc; font-size: 16px; margin: 24px 0 12px 0;">Transformation Governance</h3>
+          <ul class="bullet-list" style="font-size: 15px;">
+            <li><strong>Steering Committee:</strong> Monthly executive reviews with roadmap tracking</li>
+            <li><strong>Weekly SLA Alignment:</strong> Operational cadence with NOC and Service Delivery</li>
+            <li><strong>RCA Sessions:</strong> Bi-weekly standardization with vendors and infrastructure leads</li>
+            <li><strong>Ownership Matrix:</strong> RACI documented for all operational processes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Phase 3: Optimization</span>
+      <span>Day 90 Milestone</span>
+    </div>
+  </div>
+
+  <!-- Slide 7: KPI Dashboard & Results -->
+  <div class="slide" id="slide7">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">7 / 14</div>
+    </div>
+    
+    <h2>Operational KPI Dashboard</h2>
+    <p class="subtitle">Day 1 Baseline vs. Day 90 Target: Measurable Transformation Results</p>
+    
+    <div class="metric-cards" style="grid-template-columns: repeat(7, 1fr); gap: 16px; margin: 32px 0;">
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value negative" style="font-size: 28px;">180m</div>
+        <div class="metric-label" style="font-size: 10px;">MTTR Baseline</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↓</div>
+        <div class="metric-value positive" style="font-size: 28px;">25m</div>
+        <div class="metric-label" style="font-size: 10px;">MTTR Target</div>
+        <div class="metric-change" style="color: #10b981;">-86% Improvement</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value negative" style="font-size: 28px;">35m</div>
+        <div class="metric-label" style="font-size: 10px;">MTTD Baseline</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↓</div>
+        <div class="metric-value positive" style="font-size: 28px;">8m</div>
+        <div class="metric-label" style="font-size: 10px;">MTTD Target</div>
+        <div class="metric-change" style="color: #10b981;">-77% Improvement</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value" style="font-size: 28px; color: #f59e0b;">96.5%</div>
+        <div class="metric-label" style="font-size: 10px;">SLA Baseline</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↑</div>
+        <div class="metric-value positive" style="font-size: 28px;">99.9%</div>
+        <div class="metric-label" style="font-size: 10px;">SLA Target</div>
+        <div class="metric-change" style="color: #10b981;">+3.4% Uptime</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value negative" style="font-size: 28px;">48K</div>
+        <div class="metric-label" style="font-size: 10px;">Alerts/Month</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↓</div>
+        <div class="metric-value positive" style="font-size: 28px;">8.2K</div>
+        <div class="metric-label" style="font-size: 10px;">Alerts Target</div>
+        <div class="metric-change" style="color: #10b981;">-83% Noise</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value" style="font-size: 28px; color: #f59e0b;">28%</div>
+        <div class="metric-label" style="font-size: 10px;">Recurrence Rate</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↓</div>
+        <div class="metric-value positive" style="font-size: 28px;">4%</div>
+        <div class="metric-label" style="font-size: 10px;">Target Rate</div>
+        <div class="metric-change" style="color: #10b981;">-86% Repeat</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value" style="font-size: 28px; color: #f59e0b;">5%</div>
+        <div class="metric-label" style="font-size: 10px;">Auto Coverage</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↑</div>
+        <div class="metric-value positive" style="font-size: 28px;">65%</div>
+        <div class="metric-label" style="font-size: 10px;">Target Coverage</div>
+        <div class="metric-change" style="color: #10b981;">13x Increase</div>
+      </div>
+      
+      <div class="metric-card" style="padding: 20px 12px;">
+        <div class="metric-value" style="font-size: 28px; color: #f59e0b;">98.9%</div>
+        <div class="metric-label" style="font-size: 10px;">Uptime Baseline</div>
+        <div style="margin-top: 8px; font-size: 20px; color: #64748b;">↑</div>
+        <div class="metric-value positive" style="font-size: 28px;">99.99%</div>
+        <div class="metric-label" style="font-size: 10px;">Uptime Target</div>
+        <div class="metric-change" style="color: #10b981;">+1.09% Reliability</div>
+      </div>
+    </div>
+    
+    <div class="highlight-box">
+      <p style="font-size: 18px;"><strong>Engineering Hours Recovered:</strong> ~120 hours per week redirected from manual firefighting to innovation and strategic projects. Annual capacity gain equivalent to 3+ full-time engineers.</p>
+    </div>
+    
+    <div class="footer">
+      <span>KPI Dashboard</span>
+      <span>Day 90 Results</span>
+    </div>
+  </div>
+
+  <!-- Slide 8: Stakeholder Alignment -->
+  <div class="slide" id="slide8">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">8 / 14</div>
+    </div>
+    
+    <h2>Stakeholder Alignment & Credibility</h2>
+    <p class="subtitle">Building Relationships Across NOC, Infrastructure, Cloud, Security, and Leadership</p>
+    
+    <div class="two-column">
+      <div>
+        <h3>Key Stakeholder Map</h3>
+        <div class="stakeholder-grid" style="margin-top: 20px;">
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">📞</div>
+            <div class="stakeholder-name">NOC Manager</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Sarah Jenkins</div>
+            <div class="stakeholder-status status-supportive">Supportive</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 65%</div>
+          </div>
+          
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">☁️</div>
+            <div class="stakeholder-name">Cloud Architect</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Marcus Chen</div>
+            <div class="stakeholder-status status-champion">Champion</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 90%</div>
+          </div>
+          
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">🏢</div>
+            <div class="stakeholder-name">VP Infrastructure</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Diana Ramirez</div>
+            <div class="stakeholder-status status-supportive">Supportive</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 80%</div>
+          </div>
+          
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">🤝</div>
+            <div class="stakeholder-name">Service Delivery</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Arthur Pendelton</div>
+            <div class="stakeholder-status status-neutral">Neutral</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 60%</div>
+          </div>
+          
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">🔒</div>
+            <div class="stakeholder-name">SecOps Lead</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Elena Rostova</div>
+            <div class="stakeholder-status status-supportive">Supportive</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 70%</div>
+          </div>
+          
+          <div class="stakeholder-card">
+            <div class="stakeholder-icon">📋</div>
+            <div class="stakeholder-name">Key Vendors</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Multiple Partners</div>
+            <div class="stakeholder-status status-supportive">Supportive</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Alignment: 75%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3>Credibility Building Strategy</h3>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div class="phase-title" style="font-size: 14px; margin-bottom: 8px;">🎯 Communication Excellence</div>
+          <ul class="bullet-list" style="font-size: 13px;">
+            <li>Weekly 1-on-1 feedback sessions with skeptical managers</li>
+            <li>Plain-language playbook explanations instead of frameworks</li>
+            <li>Transparent dashboards shared with all stakeholder teams</li>
+          </ul>
+        </div>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div class="phase-title" style="font-size: 14px; margin-bottom: 8px;">🏆 Quick Win Credibility</div>
+          <ul class="bullet-list" style="font-size: 13px;">
+            <li>Delivered visible noise reduction within first 2 weeks</li>
+            <li>Demonstrated tangible MTTR improvement before Day 30</li>
+            <li>Showcased cost savings from tool consolidation</li>
+          </ul>
+        </div>
+        
+        <div class="phase-card">
+          <div class="phase-title" style="font-size: 14px; margin-bottom: 8px;">👔 Leadership Presence</div>
+          <ul class="bullet-list" style="font-size: 13px;">
+            <li>Own failures openly; share lessons learned</li>
+            <li>Run reviews with standard metrics (SLA, MTTR, Automation)</li>
+            <li>Secure vendor and NOC team buy-in through inclusion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Stakeholder Alignment</span>
+      <span>Team Relationship Map</span>
+    </div>
+  </div>
+
+  <!-- Slide 9: Quick Wins -->
+  <div class="slide" id="slide9">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">9 / 14</div>
+    </div>
+    
+    <h2>Top 10 Quick Wins Delivered</h2>
+    <p class="subtitle">Visible Momentum: Leadership Demands Early Results — We Delivered</p>
+    
+    <div class="two-column">
+      <div>
+        <div class="quick-win-list">
+          <div class="quick-win-item">
+            <div class="quick-win-number">1</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Mute Cisco SD-WAN Flapping Alerts</div>
+              <div class="quick-win-impact">-24% Alert Noise | Tuned thresholds 5s → 30s</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">2</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Consolidate SolarWinds → Splunk</div>
+              <div class="quick-win-impact">$140K License Savings | Unified syslog forwarding</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">3</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Build Payment API Service Map</div>
+              <div class="quick-win-impact">100% Dependency Visibility | Dynatrace Smartscape</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">4</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Auto-Expand Kubernetes EBS Volumes</div>
+              <div class="quick-win-impact">-12 Manual Sev-3 Tickets/Month | Self-healing</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">5</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Route SLA Alerts to MS Teams</div>
+              <div class="quick-win-impact">-15 min MTTD | Eliminated email distribution lists</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="quick-win-list">
+          <div class="quick-win-item">
+            <div class="quick-win-number">6</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Enable JVM Thread Dump Auto-Capture</div>
+              <div class="quick-win-impact">-18 min/Sev-1 | Auto-enriched incident tickets</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">7</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Deploy Log Rotation Automation</div>
+              <div class="quick-win-impact">Zero Disk Exhaustion Outages | Proactive cleanup</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">8</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Implement Alert Deduplication Rules</div>
+              <div class="quick-win-impact">-45% Total Alert Volume | Splunk correlation</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">9</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Standardize Escalation Playbooks</div>
+              <div class="quick-win-impact">-25% Escalation Time | Clear RACI matrices</div>
+            </div>
+          </div>
+          
+          <div class="quick-win-item">
+            <div class="quick-win-number">10</div>
+            <div class="quick-win-content">
+              <div class="quick-win-title">Monitor Legacy LDAP Blindspot</div>
+              <div class="quick-win-impact">100% Asset Coverage | Eliminated security gap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p style="font-size: 16px;"><strong>Executive Momentum Insight:</strong> Completing 3+ quick wins before Day 30 built incredible leadership trust, giving us leverage to secure budget for complex Days 30-60 automation projects. Early visible success is critical for transformation credibility.</p>
+    </div>
+    
+    <div class="footer">
+      <span>Quick Wins Delivered</span>
+      <span>Top 10 Operational Improvements</span>
+    </div>
+  </div>
+
+  <!-- Slide 10: Automation & Self-Healing -->
+  <div class="slide" id="slide10">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">10 / 14</div>
+    </div>
+    
+    <h2>Automation & Self-Healing Framework</h2>
+    <p class="subtitle">From Manual Dispatch to Autonomous Operations: 65% Automation Coverage</p>
+    
+    <div class="two-column">
+      <div>
+        <h3>Active Self-Healing Workflows</h3>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 15px;">🔄 Kubernetes CrashLoop Recovery</div>
+            <span class="phase-badge" style="font-size: 10px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8; margin-bottom: 8px;">
+            <strong>Trigger:</strong> CrashLoopBackOff in CoreServices namespace<br>
+            <strong>Action:</strong> Capture logs → Graceful rollout → Escalate if failing
+          </div>
+          <div style="display: flex; gap: 16px; font-size: 12px;">
+            <span style="color: #10b981;">58 Executions</span>
+            <span style="color: #06b6d4;">25 min saved/run</span>
+          </div>
+        </div>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 15px;">💾 EBS Disk Auto-Expansion</div>
+            <span class="phase-badge" style="font-size: 10px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8; margin-bottom: 8px;">
+            <strong>Trigger:</strong> Disk usage >90% on PaymentAPI nodes<br>
+            <strong>Action:</strong> Trigger AWS API expansion → Verify health → Log change
+          </div>
+          <div style="display: flex; gap: 16px; font-size: 12px;">
+            <span style="color: #10b981;">34 Executions</span>
+            <span style="color: #06b6d4;">20 min saved/run</span>
+          </div>
+        </div>
+        
+        <div class="phase-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 15px;">🔍 JVM Thread Dump Enrichment</div>
+            <span class="phase-badge" style="font-size: 10px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8; margin-bottom: 8px;">
+            <strong>Trigger:</strong> Dynatrace CPU Alert >92% on critical services<br>
+            <strong>Action:</strong> Capture thread dump → Enrich ticket → Notify MS Teams
+          </div>
+          <div style="display: flex; gap: 16px; font-size: 12px;">
+            <span style="color: #10b981;">142 Executions</span>
+            <span style="color: #06b6d4;">18 min saved/run</span>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3>Automation Impact Summary</h3>
+        
+        <div class="chart-container">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 160px; gap: 16px;">
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f8fafc; margin-bottom: 8px;">234</div>
+              <div style="height: 80px; background: linear-gradient(to top, #06b6d4, #3b82f6); border-radius: 6px 6px 0 0;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Total Executions</div>
+            </div>
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f8fafc; margin-bottom: 8px;">2,847</div>
+              <div style="height: 120px; background: linear-gradient(to top, #10b981, #06b6d4); border-radius: 6px 6px 0 0;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Minutes Saved</div>
+            </div>
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f8fafc; margin-bottom: 8px;">47</div>
+              <div style="height: 60px; background: linear-gradient(to top, #f59e0b, #ef4444); border-radius: 6px 6px 0 0;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Sev-1 Prevented</div>
+            </div>
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f8fafc; margin-bottom: 8px;">65%</div>
+              <div style="height: 100px; background: linear-gradient(to top, #8b5cf6, #06b6d4); border-radius: 6px 6px 0 0;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Auto Coverage</div>
+            </div>
+          </div>
+        </div>
+        
+        <h3 style="margin-top: 24px;">Future Automation Roadmap</h3>
+        <ul class="bullet-list" style="font-size: 15px;">
+          <li><strong>Q2 2026:</strong> Predictive capacity planning with ML-based forecasting</li>
+          <li><strong>Q3 2026:</strong> Generative AI incident summaries and RCA generation</li>
+          <li><strong>Q4 2026:</strong> Full autonomous remediation for 90% of repeat incidents</li>
+          <li><strong>2027:</strong> NoOps vision - engineers focus on innovation, not firefighting</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Automation Framework</span>
+      <span>Self-Healing Operations</span>
+    </div>
+  </div>
+
+  <!-- Slide 11: Roadmap & Governance -->
+  <div class="slide" id="slide11">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">11 / 14</div>
+    </div>
+    
+    <h2>12-24 Month Transformation Roadmap</h2>
+    <p class="subtitle">From Reactive Firefighting to Proactive, AI-Driven Autonomous SRE</p>
+    
+    <div class="two-column">
+      <div>
+        <div class="roadmap-timeline">
+          <div class="roadmap-item completed">
+            <div class="roadmap-phase">Days 1-30 ✓ COMPLETE</div>
+            <div class="roadmap-title">Assessment & Foundation</div>
+            <div class="roadmap-desc">Asset discovery, stakeholder alignment, KPI baselines, quick wins execution. 24% alert noise reduction achieved.</div>
+          </div>
+          
+          <div class="roadmap-item completed">
+            <div class="roadmap-phase">Days 30-60 ✓ COMPLETE</div>
+            <div class="roadmap-title">Modernization & Automation</div>
+            <div class="roadmap-desc">Unified dashboards, early automation pipelines, alert deduplication, governance framework. 45% total noise reduction.</div>
+          </div>
+          
+          <div class="roadmap-item completed">
+            <div class="roadmap-phase">Days 60-90 ✓ COMPLETE</div>
+            <div class="roadmap-title">Optimization & Scale</div>
+            <div class="roadmap-desc">Self-healing deployment, team alignment, executive governance, 65% automation coverage, 86% MTTR reduction.</div>
+          </div>
+          
+          <div class="roadmap-item">
+            <div class="roadmap-phase">Months 3-12 → IN PROGRESS</div>
+            <div class="roadmap-title">AI-Driven Operations</div>
+            <div class="roadmap-desc">Splunk ITSI anomaly detection, predictive analytics, automated RCA, 90% automation coverage target.</div>
+          </div>
+          
+          <div class="roadmap-item">
+            <div class="roadmap-phase">Months 12-24 → PLANNED</div>
+            <div class="roadmap-title">Autonomous Operations (NoOps)</div>
+            <div class="roadmap-desc">Full self-healing infrastructure, generative AI incident management, zero-touch remediation, predictive prevention.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3>Governance Cadence Established</h3>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div class="phase-header" style="margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 14px;">📊 Weekly Operational SLA Alignment</div>
+            <span class="phase-badge" style="font-size: 10px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8;">
+            <strong>Attendees:</strong> NOC Manager, Service Delivery Director<br>
+            <strong>Cadence:</strong> Every Monday 10:00 AM<br>
+            <strong>Focus:</strong> SLA adherence, alert trends, incident review
+          </div>
+        </div>
+        
+        <div class="phase-card" style="margin-bottom: 16px;">
+          <div class="phase-header" style="margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 14px;">🏢 AIOps Executive Steering Committee</div>
+            <span class="phase-badge" style="font-size: 10px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8;">
+            <strong>Attendees:</strong> VP Infrastructure, Cloud Architect, Program Lead<br>
+            <strong>Cadence:</strong> Monthly (Day 30/60/90/Monthly)<br>
+            <strong>Focus:</strong> Roadmap progress, budget, strategic decisions
+          </div>
+        </div>
+        
+        <div class="phase-card">
+          <div class="phase-header" style="margin-bottom: 12px;">
+            <div class="phase-title" style="font-size: 14px;">🔍 RCA Standardization Sessions</div>
+            <span class="phase-badge" style="font-size: 10px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-color: rgba(245, 158, 11, 0.3);">PLANNED</span>
+          </div>
+          <div style="font-size: 13px; color: #94a3b8;">
+            <strong>Attendees:</strong> NOC Teams, Infrastructure Leads, Vendors<br>
+            <strong>Cadence:</strong> Bi-weekly Thursdays<br>
+            <strong>Focus:</strong> Post-mortem standardization, pattern analysis
+          </div>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 20px;">
+          <p style="font-size: 14px;"><strong>Ownership Matrix:</strong> RACI documented for all operational processes. No single points of failure. Sustainable excellence framework in place.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>Roadmap & Governance</span>
+      <span>12-24 Month Vision</span>
+    </div>
+  </div>
+
+  <!-- Slide 12: ROI & Budget -->
+  <div class="slide" id="slide12">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">12 / 14</div>
+    </div>
+    
+    <h2>Transformation ROI & Budget Impact</h2>
+    <p class="subtitle">Calculated Cost Savings Through Alert Deduplication and Downtime Prevention</p>
+    
+    <div class="roi-summary">
+      <div class="roi-card">
+        <div class="roi-value">$310K+</div>
+        <div class="roi-label">Projected Annual Savings</div>
+        <div style="font-size: 13px; color: #94a3b8; margin-top: 8px;">Combined operational efficiencies</div>
+      </div>
+      
+      <div class="roi-card">
+        <div class="roi-value">4.5 Months</div>
+        <div class="roi-label">Investment Payback Period</div>
+        <div style="font-size: 13px; color: #94a3b8; margin-top: 8px;">Rapid value realization</div>
+      </div>
+      
+      <div class="roi-card">
+        <div class="roi-value">3.5x ROI</div>
+        <div class="roi-label">Return on Investment</div>
+        <div style="font-size: 13px; color: #94a3b8; margin-top: 8px;">Within first 12 months</div>
+      </div>
+    </div>
+    
+    <div class="two-column">
+      <div>
+        <h3>Cost Savings Breakdown</h3>
+        <ul class="bullet-list">
+          <li><strong>Tool Consolidation:</strong> $140K annually from SolarWinds → Splunk migration</li>
+          <li><strong>Engineering Hours:</strong> ~120 hrs/week recovered = 3 FTE equivalent ($195K)</li>
+          <li><strong>Incident Triage:</strong> 18 min saved per Sev-1 × 200 incidents = 60 hrs/month ($45K)</li>
+          <li><strong>Downtime Prevention:</strong> Estimated 12 high-severity outages avoided ($180K)</li>
+          <li><strong>Alert Noise Reduction:</strong> 40% reduction in false positive investigation time ($35K)</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3>Investment Requirements</h3>
+        
+        <div class="chart-container">
+          <div style="display: flex; justify-content: space-around; align-items: flex-end; height: 140px; gap: 24px;">
+            <div style="text-align: center;">
+              <div style="font-size: 14px; font-weight: 700; color: #f8fafc; margin-bottom: 8px;">$850K</div>
+              <div style="width: 80px; height: 120px; background: #ef4444; border-radius: 6px 6px 0 0; opacity: 0.8;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Legacy Cost</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 14px; font-weight: 700; color: #f8fafc; margin-bottom: 8px;">$350K</div>
+              <div style="width: 80px; height: 50px; background: #06b6d4; border-radius: 6px 6px 0 0; opacity: 0.8;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">AIOps Cost</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 8px;">$500K</div>
+              <div style="width: 80px; height: 85px; background: #10b981; border-radius: 6px 6px 0 0; opacity: 0.8;"></div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">Net Savings</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="highlight-box">
+          <p style="font-size: 14px;"><strong>Cost of Inaction:</strong> Without transformation, projected 15% increase in operational costs annually due to technical debt, alert fatigue turnover, and manual process inefficiencies.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <span>ROI & Budget Analysis</span>
+      <span>Financial Impact Summary</span>
+    </div>
+  </div>
+
+  <!-- Slide 13: Next Steps -->
+  <div class="slide" id="slide13">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">13 / 14</div>
+    </div>
+    
+    <h2>Next Steps & Recommendations</h2>
+    <p class="subtitle">Leadership Decisions Required to Maintain Transformation Momentum</p>
+    
+    <div class="action-items">
+      <div class="action-item">
+        <div class="action-number">1</div>
+        <div class="action-title">Approve Q2-Q4 Automation Expansion</div>
+        <div class="action-desc">Budget allocation for Splunk ITSI license expansion, additional Dynatrace modules, and AI correlation engine deployment. Required by Month 3 to maintain velocity.</div>
+      </div>
+      
+      <div class="action-item">
+        <div class="action-number">2</div>
+        <div class="action-title">Establish AIOps Center of Excellence</div>
+        <div class="action-desc">Dedicated team structure with SRE, Data Science, and Platform Engineering representation. Critical for sustaining governance and continuous improvement.</div>
+      </div>
+      
+      <div class="action-item">
+        <div class="action-number">3</div>
+        <div class="action-title">Expand Self-Healing Coverage</div>
+        <div class="action-desc">Target 90% automation coverage by Month 12. Prioritize: database failover, network auto-remediation, security incident response playbooks.</div>
+      </div>
+      
+      <div class="action-item">
+        <div class="action-number">4</div>
+        <div class="action-title">Invest in Team Skill Development</div>
+        <div class="action-desc">Training programs for NOC transition to automation supervision. ML/AI literacy for SRE teams. Vendor certification programs.</div>
+      </div>
+    </div>
+    
+    <div class="highlight-box" style="margin-top: 32px;">
+      <p style="font-size: 18px;"><strong>Strategic Recommendation:</strong> The foundation is built. With sustained investment and executive sponsorship, we will achieve full autonomous operations (NoOps) within 12-24 months, positioning the organization as an industry leader in AI-driven operational excellence.</p>
+    </div>
+    
+    <div class="footer">
+      <span>Next Steps</span>
+      <span>Leadership Action Items</span>
+    </div>
+  </div>
+
+  <!-- Slide 14: Thank You -->
+  <div class="slide" id="slide14">
+    <div class="slide-header">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">AIOps NEXUS</div>
+      </div>
+      <div class="slide-number">14 / 14</div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 80px;">
+      <div style="font-size: 80px; margin-bottom: 32px;">🎯</div>
+      <h1 style="font-size: 56px; margin-bottom: 24px;">Thank You</h1>
+      <p class="subtitle" style="font-size: 24px; max-width: 700px; margin: 0 auto 48px auto;">
+        Together, we've transformed operations from reactive firefighting to proactive, AI-driven excellence.
+      </p>
+      
+      <div style="display: inline-flex; gap: 48px; margin-top: 48px;">
+        <div style="text-align: center;">
+          <div style="font-size: 36px; font-weight: 800; color: #06b6d4;">86%</div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">MTTR Reduction</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 36px; font-weight: 800; color: #10b981;">83%</div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Alert Noise Cut</div>
+        </div>
+        <div style="font-size: 36px; font-weight: 800; color: #64748b;">|</div>
+        <div style="text-align: center;">
+          <div style="font-size: 36px; font-weight: 800; color: #8b5cf6;">$310K+</div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Annual Savings</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="position: absolute; bottom: 80px; left: 80px; right: 80px; text-align: center;">
+      <p style="font-size: 14px; color: #64748b;">
+        <strong>Questions?</strong> Contact the AIOps Transformation Team<br>
+        <span style="font-size: 12px;">Program Dashboard: AIOps Nexus Suite | Q1 2026 Review</span>
+      </p>
+    </div>
+    
+    <div class="footer">
+      <span>AIOps Nexus Program</span>
+      <span>Executive Presentation</span>
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="navigation">
+    <button class="nav-btn" onclick="prevSlide()">← Previous</button>
+    <button class="nav-btn" onclick="nextSlide()">Next →</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 14;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      
+      if (n > totalSlides) currentSlide = 1;
+      if (n < 1) currentSlide = totalSlides;
+      
+      slides.forEach((slide, index) => {
+        slide.style.display = (index + 1 === currentSlide) ? 'flex' : 'none';
+      });
+      
+      // Update progress bar
+      const progress = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    function nextSlide() {
+      currentSlide++;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Initialize
+    showSlide(currentSlide);
+  </script>
+</body>
+</html>

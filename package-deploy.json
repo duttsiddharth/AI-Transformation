@@ -1,0 +1,33 @@
+{
+  "name": "aiops-transition-suite",
+  "version": "1.0.0",
+  "description": "AIOps Operational Transition Suite - Fully standalone deployment package",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080 || python -m SimpleHTTPServer 8080",
+    "serve": "npx serve -l 8080",
+    "docker:build": "docker build -t aiops-suite .",
+    "docker:run": "docker run -p 8080:80 aiops-suite"
+  },
+  "keywords": [
+    "aiops",
+    "sre",
+    "operations",
+    "transformation",
+    "observability",
+    "mlops",
+    "dashboard"
+  ],
+  "author": "Your Organization",
+  "license": "Internal Use",
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "index.html",
+    "presentation.html",
+    "README.md",
+    "DEPLOY.md",
+    "Dockerfile"
+  ]
+}
