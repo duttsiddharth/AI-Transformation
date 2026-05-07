@@ -363,22 +363,22 @@ export default function App() {
   // Color helper for health statuses
   const getStatusColor = (status: Asset['status']) => {
     switch (status) {
-      case 'Healthy': return 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30';
-      case 'Degraded': return 'bg-amber-500/15 text-amber-400 border border-amber-500/30';
-      case 'Critical': return 'bg-rose-500/15 text-rose-400 border border-rose-500/30';
-      case 'Unmonitored': return 'bg-slate-500/15 text-slate-400 border border-slate-500/30';
-      default: return 'bg-slate-500/15 text-slate-400';
+      case 'Healthy': return 'bg-emerald-500/15 text-emerald-600 border border-emerald-400/50';
+      case 'Degraded': return 'bg-amber-100 text-amber-700 border border-amber-300';
+      case 'Critical': return 'bg-rose-100 text-rose-700 border border-rose-300';
+      case 'Unmonitored': return 'bg-gray-100 text-gray-500 border border-gray-300';
+      default: return 'bg-gray-100 text-gray-500';
     }
   };
 
   // Sentiment emoji and background
   const getSentimentBadge = (sentiment: Stakeholder['sentiment']) => {
     switch (sentiment) {
-      case 'Champion': return { label: '🌟 Champion', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' };
-      case 'Supportive': return { label: '👍 Supportive', color: 'bg-teal-500/20 text-teal-300 border-teal-500/40' };
-      case 'Neutral': return { label: '😐 Neutral', color: 'bg-slate-500/20 text-slate-300 border-slate-500/40' };
-      case 'Skeptical': return { label: '🤔 Skeptical', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' };
-      case 'Resistant': return { label: '🚨 Resistant', color: 'bg-rose-500/20 text-rose-300 border-rose-500/40' };
+      case 'Champion': return { label: '🌟 Champion', color: 'bg-emerald-500/20 text-emerald-700 border-emerald-500/40' };
+      case 'Supportive': return { label: '👍 Supportive', color: 'bg-teal-500/20 text-teal-700 border-teal-400/50' };
+      case 'Neutral': return { label: '😐 Neutral', color: 'bg-gray-100 text-gray-600 border-gray-300' };
+      case 'Skeptical': return { label: '🤔 Skeptical', color: 'bg-amber-500/20 text-amber-700 border-amber-500/40' };
+      case 'Resistant': return { label: '🚨 Resistant', color: 'bg-rose-100 text-rose-700 border-rose-300' };
     }
   };
 
@@ -388,8 +388,8 @@ export default function App() {
       <header className="border-b border-gray-200 bg-white/80 backdrop-blur sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-tr from-cyan-500 to-indigo-600 rounded-xl shadow-lg shadow-cyan-500/15 animate-pulse">
-              <Cpu className="w-7 h-7 text-white" />
+            <div className="p-2 bg-gradient-to-tr from-cyan-500 to-indigo-600 rounded-xl shadow-lg shadow-cyan-500/20 animate-pulse">
+              <Cpu className="w-7 h-7 text-gray-900" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -397,34 +397,34 @@ export default function App() {
                   type="text"
                   value={programTitle}
                   onChange={(e) => setProgramTitle(e.target.value)}
-                  className="text-xl font-bold tracking-tight text-white bg-transparent border border-transparent hover:border-slate-700 focus:border-cyan-500 rounded px-1 outline-none w-32"
+                  className="text-xl font-bold tracking-tight text-gray-900 bg-transparent border border-transparent hover:border-gray-300 focus:border-cyan-400 rounded px-1 outline-none w-32"
                 />
-                <span className="bg-cyan-500/10 text-cyan-400 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border border-cyan-500/30">
+                <span className="bg-cyan-500/10 text-cyan-600 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border border-cyan-400/50">
                   <input
                     type="text"
                     value={programSubtitle}
                     onChange={(e) => setProgramSubtitle(e.target.value)}
-                    className="bg-transparent border-none outline-none text-cyan-400 w-32 text-center"
+                    className="bg-transparent border-none outline-none text-cyan-600 w-32 text-center"
                   />
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Enterprise AI Operations &amp; Observability Modernization</p>
+              <p className="text-xs text-gray-500">Enterprise AI Operations &amp; Observability Modernization</p>
             </div>
           </div>
 
           {/* Timeline and Program Day Selector */}
-          <div className="flex flex-wrap items-center gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800">
-            <span className="text-xs text-slate-400 px-2 font-medium">Program Milestone:</span>
+          <div className="flex flex-wrap items-center gap-2 bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
+            <span className="text-xs text-gray-500 px-2 font-medium">Program Milestone:</span>
             {phases.map((phase, index) => (
               <button
                 key={phase.id}
                 onClick={() => setPhasePreset(Math.round((phase.startDay + phase.endDay) / 2))}
                 className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
                   transformationProgress >= phase.startDay && transformationProgress <= phase.endDay
-                    ? index === 0 ? 'bg-cyan-600 text-white shadow-md' :
-                      index === 1 ? 'bg-indigo-600 text-white shadow-md' :
-                      'bg-emerald-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    ? index === 0 ? 'bg-cyan-600 text-gray-900 shadow-md' :
+                      index === 1 ? 'bg-indigo-600 text-gray-900 shadow-md' :
+                      'bg-emerald-600 text-gray-900 shadow-md'
+                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
                 {phase.name}: {phase.label}
@@ -435,10 +435,10 @@ export default function App() {
       </header>
 
       {/* QUICK STATUS STRIP */}
-      <section className="bg-slate-900 border-b border-slate-800/80 px-4 sm:px-6 lg:px-8 py-3">
+      <section className="bg-gray-50 border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-3">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="text-xs text-slate-400 uppercase tracking-widest font-mono">Current Day:</div>
+            <div className="text-xs text-gray-500 uppercase tracking-widest font-mono">Current Day:</div>
             <div className="flex items-center gap-1.5">
               <input
                 type="range"
@@ -446,33 +446,33 @@ export default function App() {
                 max="90"
                 value={transformationProgress}
                 onChange={(e) => setTransformationProgress(Number(e.target.value))}
-                className="w-32 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                className="w-32 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
               />
-              <span className="text-sm font-bold font-mono text-cyan-400 w-12 text-center bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/20">
+              <span className="text-sm font-bold font-mono text-cyan-600 w-12 text-center bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-400/30">
                 Day {transformationProgress}
               </span>
             </div>
-            <span className="text-xs text-slate-500 hidden lg:inline">
+            <span className="text-xs text-gray-400 hidden lg:inline">
               (Adjust timeline slider to simulate cumulative progress effects)
             </span>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <div className="text-xs">
-              <span className="text-slate-400 mr-1.5 font-medium">Quick Wins Activated:</span>
-              <span className="text-emerald-400 font-bold font-mono bg-emerald-950/30 px-2 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-gray-500 mr-1.5 font-medium">Quick Wins Activated:</span>
+              <span className="text-emerald-700 font-bold font-mono bg-emerald-100 px-2 py-0.5 rounded border border-emerald-400/30">
                 {activeQuickWinsCount} / {quickWins.length}
               </span>
             </div>
             <div className="text-xs">
-              <span className="text-slate-400 mr-1.5 font-medium">Active Automations:</span>
-              <span className="text-indigo-400 font-bold font-mono bg-indigo-950/30 px-2 py-0.5 rounded border border-indigo-500/20">
+              <span className="text-gray-500 mr-1.5 font-medium">Active Automations:</span>
+              <span className="text-indigo-700 font-bold font-mono bg-indigo-100 px-2 py-0.5 rounded border border-indigo-400/30">
                 {workflows.filter(w => w.status === 'Active').length} Live
               </span>
             </div>
             <div className="text-xs">
-              <span className="text-slate-400 mr-1.5 font-medium">Est. Weekly Saved:</span>
-              <span className="text-yellow-400 font-bold font-mono bg-yellow-950/30 px-2 py-0.5 rounded border border-yellow-500/20">
+              <span className="text-gray-500 mr-1.5 font-medium">Est. Weekly Saved:</span>
+              <span className="text-yellow-700 font-bold font-mono bg-yellow-100 px-2 py-0.5 rounded border border-yellow-400/30">
                 {metrics.hoursSaved} Hours
               </span>
             </div>
@@ -483,43 +483,43 @@ export default function App() {
       {/* METRIC CORE CARDS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">MTTR (Res.)</span>
-              <Clock className="w-4 h-4 text-cyan-400" />
+              <Clock className="w-4 h-4 text-cyan-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
-              {metrics.mttr} <span className="text-xs text-slate-400 font-normal">m</span>
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
+              {metrics.mttr} <span className="text-xs text-gray-500 font-normal">m</span>
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 flex items-center gap-0.5 font-medium">
+            <div className="text-[10px] text-emerald-600 mt-1 flex items-center gap-0.5 font-medium">
               <TrendingDown className="w-3 h-3" />
               <span>Down from 180m</span>
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">MTTD (Det.)</span>
-              <Activity className="w-4 h-4 text-indigo-400" />
+              <Activity className="w-4 h-4 text-indigo-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
-              {metrics.mttd} <span className="text-xs text-slate-400 font-normal">m</span>
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
+              {metrics.mttd} <span className="text-xs text-gray-500 font-normal">m</span>
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 flex items-center gap-0.5 font-medium">
+            <div className="text-[10px] text-emerald-600 mt-1 flex items-center gap-0.5 font-medium">
               <TrendingDown className="w-3 h-3" />
               <span>Down from 35m</span>
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm group">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm group">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">SLA Adherence</span>
-              <Award className="w-4 h-4 text-emerald-400" />
+              <Award className="w-4 h-4 text-emerald-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
               {metrics.sla}%
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 font-medium flex items-center gap-1">
+            <div className="text-[10px] text-emerald-600 mt-1 font-medium flex items-center gap-1">
               Target: 
               <input
                 type="number"
@@ -531,54 +531,54 @@ export default function App() {
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">Alert Noise / Mo</span>
-              <ZapOff className="w-4 h-4 text-yellow-400" />
+              <ZapOff className="w-4 h-4 text-yellow-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
               {metrics.alertVolume.toLocaleString()}
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 font-medium">
+            <div className="text-[10px] text-emerald-600 mt-1 font-medium">
               -{Math.round((1 - metrics.alertVolume / 48000) * 100)}% Alert Fatigue
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">Recurrence</span>
-              <RefreshCw className="w-4 h-4 text-amber-400" />
+              <RefreshCw className="w-4 h-4 text-amber-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
               {metrics.recurrence}%
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 font-medium">
+            <div className="text-[10px] text-emerald-600 mt-1 font-medium">
               Repeated Outages
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">Auto-Coverage</span>
-              <Settings className="w-4 h-4 text-purple-400" />
+              <Settings className="w-4 h-4 text-purple-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
               {metrics.automationCoverage}%
             </div>
-            <div className="text-[10px] text-indigo-400 mt-1 font-medium">
+            <div className="text-[10px] text-indigo-600 mt-1 font-medium">
               Self-Healing &amp; Triage
             </div>
           </div>
 
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all shadow-sm">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
+          <div className="bg-white p-4 rounded-xl border border-gray-200/80 hover:border-cyan-400/50 transition-all shadow-sm">
+            <div className="flex items-center justify-between text-gray-500 mb-1">
               <span className="text-xs font-semibold">Uptime Target</span>
-              <Server className="w-4 h-4 text-rose-400" />
+              <Server className="w-4 h-4 text-rose-600" />
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-white">
+            <div className="text-2xl font-black font-mono tracking-tight text-gray-900">
               {metrics.uptime}%
             </div>
-            <div className="text-[10px] text-emerald-400 mt-1 font-medium">
+            <div className="text-[10px] text-emerald-600 mt-1 font-medium">
               Critical Apps Active
             </div>
           </div>
@@ -591,10 +591,10 @@ export default function App() {
           
           {/* NAVIGATION SIDEBAR */}
           <aside className="w-full lg:w-64 shrink-0">
-            <div className="bg-slate-900 rounded-xl border border-slate-800/80 overflow-hidden sticky top-24">
-              <div className="p-4 bg-slate-800/50 border-b border-slate-800">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Phase Deliverables</span>
-                <p className="text-xs text-slate-500 mt-0.5">Interact with the tabs below to configure and explore the {totalDays}-day plan.</p>
+            <div className="bg-white rounded-xl border border-gray-200/80 overflow-hidden sticky top-24">
+              <div className="p-4 bg-gray-100/50 border-b border-gray-200">
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block">Phase Deliverables</span>
+                <p className="text-xs text-gray-400 mt-0.5">Interact with the tabs below to configure and explore the {totalDays}-day plan.</p>
               </div>
 
               <nav className="p-2 space-y-1">
@@ -602,145 +602,145 @@ export default function App() {
                   onClick={() => setActiveTab('kpi')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'kpi'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-cyan-400" />
+                    <Activity className="w-4 h-4 text-cyan-600" />
                     📊 KPI Dashboard &amp; Simulator
                   </span>
-                  <span className="text-[9px] bg-cyan-950 text-cyan-300 px-1.5 py-0.5 rounded uppercase font-bold border border-cyan-500/20">All Days</span>
+                  <span className="text-[9px] bg-cyan-50 text-cyan-700 px-1.5 py-0.5 rounded uppercase font-bold border border-cyan-400/30">All Days</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('assets')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'assets'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-purple-400" />
+                    <Layers className="w-4 h-4 text-purple-600" />
                     🌐 Environment Asset Discovery
                   </span>
-                  <span className="text-[9px] bg-slate-850 text-slate-300 px-1.5 py-0.5 rounded uppercase font-bold border border-slate-700">{phases[0]?.name || 'Phase 1'}</span>
+                  <span className="text-[9px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded uppercase font-bold border border-gray-300">{phases[0]?.name || 'Phase 1'}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('stakeholders')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'stakeholders'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-emerald-400" />
+                    <Users className="w-4 h-4 text-emerald-600" />
                     👥 Stakeholders Alignment
                   </span>
-                  <span className="text-[9px] bg-slate-850 text-slate-300 px-1.5 py-0.5 rounded uppercase font-bold border border-slate-700">{phases[0]?.name || 'Phase 1'}</span>
+                  <span className="text-[9px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded uppercase font-bold border border-gray-300">{phases[0]?.name || 'Phase 1'}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('maturity')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'maturity'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-amber-400" />
+                    <Sliders className="w-4 h-4 text-amber-600" />
                     📈 Observability Maturity
                   </span>
-                  <span className="text-[9px] bg-slate-850 text-slate-300 px-1.5 py-0.5 rounded uppercase font-bold border border-slate-700">{phases[0]?.name || 'Phase 1'}</span>
+                  <span className="text-[9px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded uppercase font-bold border border-gray-300">{phases[0]?.name || 'Phase 1'}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('quickwins')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'quickwins'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400" />
+                    <Zap className="w-4 h-4 text-yellow-600" />
                     ⚡ Quick Wins Noise Hub
                   </span>
-                  <span className="text-[9px] bg-amber-950/40 text-amber-400 px-1.5 py-0.5 rounded uppercase font-bold border border-amber-500/20">Day 30 Win</span>
+                  <span className="text-[9px] bg-amber-50 text-amber-600 px-1.5 py-0.5 rounded uppercase font-bold border border-amber-400/30">Day 30 Win</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('automation')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'automation'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Cpu className="w-4 h-4 text-pink-400" />
+                    <Cpu className="w-4 h-4 text-pink-600" />
                     ⚙️ Automation Pipeline Lab
                   </span>
-                  <span className="text-[9px] bg-indigo-950/40 text-indigo-400 px-1.5 py-0.5 rounded uppercase font-bold border border-indigo-500/20">{phases[1]?.name || 'Phase 2'}</span>
+                  <span className="text-[9px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded uppercase font-bold border border-indigo-400/30">{phases[1]?.name || 'Phase 2'}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('roadmap')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'roadmap'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-blue-400" />
+                    <FileText className="w-4 h-4 text-blue-600" />
                     🗺️ Roadmap &amp; Governance
                   </span>
-                  <span className="text-[9px] bg-emerald-950/40 text-emerald-400 px-1.5 py-0.5 rounded uppercase font-bold border border-emerald-500/20">{phases[2]?.name || 'Phase 3'}</span>
+                  <span className="text-[9px] bg-emerald-50/40 text-emerald-600 px-1.5 py-0.5 rounded uppercase font-bold border border-emerald-400/30">{phases[2]?.name || 'Phase 3'}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('executive')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'executive'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Presentation className="w-4 h-4 text-rose-400" />
+                    <Presentation className="w-4 h-4 text-rose-600" />
                     👔 Executive Presenter
                   </span>
-                  <span className="text-[9px] bg-rose-950/40 text-rose-400 px-1.5 py-0.5 rounded uppercase font-bold border border-rose-500/20">{phases[2]?.name || 'Final'} Pres</span>
+                  <span className="text-[9px] bg-rose-50 text-rose-600 px-1.5 py-0.5 rounded uppercase font-bold border border-rose-400/30">{phases[2]?.name || 'Final'} Pres</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('aistack')}
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all ${
                     activeTab === 'aistack'
-                      ? 'bg-gradient-to-r from-cyan-950 to-indigo-950 text-cyan-400 border border-cyan-500/30 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-indigo-100 text-cyan-700 border border-cyan-300 font-semibold shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-100/50'
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <Brain className="w-4 h-4 text-purple-400" />
+                    <Brain className="w-4 h-4 text-purple-600" />
                     🧠 AI Stack Architecture
                   </span>
-                  <span className="text-[9px] bg-purple-950/40 text-purple-400 px-1.5 py-0.5 rounded uppercase font-bold border border-purple-500/20">ML/MLOps</span>
+                  <span className="text-[9px] bg-purple-50 text-purple-600 px-1.5 py-0.5 rounded uppercase font-bold border border-purple-400/30">ML/MLOps</span>
                 </button>
               </nav>
 
               {/* SIDEBAR TRANSFORMATION GOAL PROGRESS */}
-              <div className="p-4 bg-slate-900 border-t border-slate-800 mt-4 space-y-3">
+              <div className="p-4 bg-white border-t border-gray-200 mt-4 space-y-3">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-400">Total Program Target</span>
-                  <span className="font-bold text-cyan-400 font-mono">{Math.round((transformationProgress / totalDays) * 100)}%</span>
+                  <span className="text-gray-500">Total Program Target</span>
+                  <span className="font-bold text-cyan-600 font-mono">{Math.round((transformationProgress / totalDays) * 100)}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-cyan-500 to-indigo-600 h-full transition-all duration-300"
                     style={{ width: `${Math.min(100, Math.round((transformationProgress / totalDays) * 100))}%` }}
@@ -748,30 +748,30 @@ export default function App() {
                 </div>
                 
                 {/* Editable Phase Deliverables */}
-                <div className="pt-3 border-t border-slate-800">
+                <div className="pt-3 border-t border-gray-200">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Phase Deliverables</span>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Phase Deliverables</span>
                     <button
                       onClick={() => setShowAddDeliverable(!showAddDeliverable)}
-                      className="text-[10px] bg-cyan-600 hover:bg-cyan-500 text-white px-2 py-0.5 rounded"
+                      className="text-[10px] bg-cyan-600 hover:bg-cyan-500 text-gray-900 px-2 py-0.5 rounded"
                     >
                       + Add
                     </button>
                   </div>
                   
                   {showAddDeliverable && (
-                    <div className="bg-slate-950 p-2 rounded mb-2 space-y-1">
+                    <div className="bg-gray-50 p-2 rounded mb-2 space-y-1">
                       <input
                         type="text"
                         placeholder="Deliverable title"
                         value={newDeliverableTitle}
                         onChange={(e) => setNewDeliverableTitle(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-[10px] rounded px-2 py-1"
+                        className="w-full bg-white border border-gray-200 text-gray-700 text-[10px] rounded px-2 py-1"
                       />
                       <select
                         value={newDeliverablePhase}
                         onChange={(e) => setNewDeliverablePhase(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-[10px] rounded px-2 py-1"
+                        className="w-full bg-white border border-gray-200 text-gray-700 text-[10px] rounded px-2 py-1"
                       >
                         {phases.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                       </select>
@@ -790,13 +790,13 @@ export default function App() {
                               setShowAddDeliverable(false);
                             }
                           }}
-                          className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] py-1 rounded"
+                          className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-gray-900 text-[10px] py-1 rounded"
                         >
                           Add
                         </button>
                         <button
                           onClick={() => setShowAddDeliverable(false)}
-                          className="flex-1 bg-slate-700 hover:bg-slate-600 text-white text-[10px] py-1 rounded"
+                          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 text-[10px] py-1 rounded"
                         >
                           Cancel
                         </button>
@@ -807,7 +807,7 @@ export default function App() {
                   <div className="space-y-1 max-h-48 overflow-y-auto">
                     {phases.map(phase => (
                       <div key={phase.id}>
-                        <div className="text-[10px] font-semibold text-cyan-400 uppercase">{phase.name}</div>
+                        <div className="text-[10px] font-semibold text-cyan-600 uppercase">{phase.name}</div>
                         {phaseDeliverables.filter(d => d.phase === phase.id).map(deliverable => (
                           <div key={deliverable.id} className="flex items-center justify-between group py-0.5">
                             {editingDeliverable === deliverable.id ? (
@@ -818,11 +818,11 @@ export default function App() {
                                 onBlur={() => setEditingDeliverable(null)}
                                 onKeyDown={(e) => e.key === 'Enter' && setEditingDeliverable(null)}
                                 autoFocus
-                                className="flex-1 bg-slate-900 border border-slate-700 text-slate-200 text-[10px] rounded px-1 py-0.5"
+                                className="flex-1 bg-white border border-gray-300 text-gray-700 text-[10px] rounded px-1 py-0.5"
                               />
                             ) : (
                               <span 
-                                className="text-[10px] text-slate-400 flex-1 cursor-pointer hover:text-slate-200"
+                                className="text-[10px] text-gray-500 flex-1 cursor-pointer hover:text-gray-700"
                                 onClick={() => deliverable.editable && setEditingDeliverable(deliverable.id)}
                               >
                                 {deliverable.title}
@@ -831,7 +831,7 @@ export default function App() {
                             {deliverable.editable && (
                               <button
                                 onClick={() => setPhaseDeliverables(phaseDeliverables.filter(d => d.id !== deliverable.id))}
-                                className="opacity-0 group-hover:opacity-100 text-rose-500 hover:text-rose-400 text-[10px] px-1"
+                                className="opacity-0 group-hover:opacity-100 text-rose-500 hover:text-rose-600 text-[10px] px-1"
                               >
                                 ×
                               </button>
@@ -852,36 +852,36 @@ export default function App() {
             {/* TAB 1: KPI DASHBOARD & LIVE SIMULATOR */}
             {activeTab === 'kpi' && (
               <div className="space-y-6">
-                <div className="bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-900 p-6 rounded-2xl border border-indigo-900/40 shadow-xl relative overflow-hidden">
+                <div className="bg-gradient-to-r from-indigo-50/80 via-white to-gray-50 p-6 rounded-2xl border border-indigo-200 shadow-xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
                   <div className="absolute bottom-0 left-1/3 w-60 h-60 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
 
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider block">Deliverable expected by Day 30 / 60 / 90</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2 mt-1">
+                      <span className="text-xs font-mono text-cyan-600 uppercase tracking-wider block">Deliverable expected by Day 30 / 60 / 90</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2 mt-1">
                         📊 Live KPI Baseline Dashboard &amp; Impact Simulator
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Simulate the performance change of the enterprise after deploying AIOps deduplication rules, automated alerts routing, and self-healing.
                       </p>
                     </div>
                     <button
                       onClick={handleOptimizeAllQuickWins}
-                      className="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow"
+                      className="bg-cyan-600 hover:bg-cyan-500 text-gray-900 text-xs font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow"
                     >
                       <Zap className="w-4 h-4 fill-white" /> Apply All Quick Wins
                     </button>
                   </div>
 
                   {/* INTERACTIVE CONTROLS */}
-                  <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-100/80 p-4 rounded-xl border border-gray-200/80 mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wide flex items-center gap-1">
-                          <Sliders className="w-3.5 h-3.5 text-cyan-400" /> Simulated Program Progress:
+                        <label className="text-xs font-bold text-gray-600 uppercase tracking-wide flex items-center gap-1">
+                          <Sliders className="w-3.5 h-3.5 text-cyan-600" /> Simulated Program Progress:
                         </label>
-                        <span className="text-xs text-cyan-400 font-mono font-bold bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/30">
+                        <span className="text-xs text-cyan-700 font-mono font-bold bg-cyan-50 px-2 py-0.5 rounded border border-cyan-400/50">
                           Day {transformationProgress} of 90
                         </span>
                       </div>
@@ -891,9 +891,9 @@ export default function App() {
                         max="90"
                         value={transformationProgress}
                         onChange={(e) => setTransformationProgress(Number(e.target.value))}
-                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                        className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                       />
-                      <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                      <div className="flex justify-between text-[10px] text-gray-400 mt-1">
                         <span>Day 1 (Assessment)</span>
                         <span>Day 30 (Quick Wins)</span>
                         <span>Day 60 (Transformation)</span>
@@ -902,82 +902,82 @@ export default function App() {
                     </div>
 
                     <div>
-                      <div className="text-xs font-semibold text-slate-300 mb-2">AIOps Cumulative Operational Improvements</div>
-                      <p className="text-xs text-slate-400 leading-relaxed mb-2">
+                      <div className="text-xs font-semibold text-gray-600 mb-2">AIOps Cumulative Operational Improvements</div>
+                      <p className="text-xs text-gray-500 leading-relaxed mb-2">
                         As you proceed through the transformation roadmap, alerts decrease due to deduplication, MTTR falls via automatic thread dumps/logs routing, and critical application uptime rises.
                       </p>
-                      <div className="text-[11px] text-emerald-400 font-mono flex items-center gap-1.5">
+                      <div className="text-[11px] text-emerald-600 font-mono flex items-center gap-1.5">
                         <Check className="w-3.5 h-3.5" /> Calculated annual operations savings:
-                        <span className="font-bold underline text-white">${((metrics.hoursSaved * 52 * 75) + (transformationProgress * 3000)).toLocaleString()} USD</span>
+                        <span className="font-bold underline text-gray-900">${((metrics.hoursSaved * 52 * 75) + (transformationProgress * 3000)).toLocaleString()} USD</span>
                       </div>
                     </div>
                   </div>
 
                   {/* REAL-TIME SVG CHART */}
-                  <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                  <div className="bg-gray-50/50 p-4 rounded-xl border border-gray-200">
                     <div className="flex justify-between items-center mb-4">
-                      <div className="text-xs font-mono text-slate-400">
+                      <div className="text-xs font-mono text-gray-500">
                         Operational MTTR Trend &amp; Noise Reduction Analysis
                       </div>
-                      <span className="text-[10px] text-cyan-400 bg-cyan-950 px-2 py-1 rounded border border-cyan-500/20">
+                      <span className="text-[10px] text-cyan-600 bg-cyan-50 px-2 py-1 rounded border border-cyan-400/30">
                         Interactive Live Chart
                       </span>
                     </div>
 
-                    <div className="h-44 w-full flex items-end justify-between gap-1 pt-4 border-b border-l border-slate-800 pb-2 px-2 relative">
+                    <div className="h-44 w-full flex items-end justify-between gap-1 pt-4 border-b border-l border-gray-200 pb-2 px-2 relative">
                       {/* Grid background lines */}
-                      <div className="absolute top-1/4 left-0 w-full border-t border-slate-900 pointer-events-none" />
-                      <div className="absolute top-2/4 left-0 w-full border-t border-slate-900 pointer-events-none" />
-                      <div className="absolute top-3/4 left-0 w-full border-t border-slate-900 pointer-events-none" />
+                      <div className="absolute top-1/4 left-0 w-full border-t border-gray-200 pointer-events-none" />
+                      <div className="absolute top-2/4 left-0 w-full border-t border-gray-200 pointer-events-none" />
+                      <div className="absolute top-3/4 left-0 w-full border-t border-gray-200 pointer-events-none" />
 
                       {/* Bar 1: Baseline */}
                       <div className="flex flex-col items-center flex-1 max-w-[80px]">
-                        <div className="text-slate-400 text-xs font-mono font-bold">180m</div>
-                        <div className="w-full bg-slate-800 h-28 rounded-t-lg mt-2 relative overflow-hidden">
+                        <div className="text-gray-500 text-xs font-mono font-bold">180m</div>
+                        <div className="w-full bg-gray-100 h-28 rounded-t-lg mt-2 relative overflow-hidden border border-gray-200">
                           <div className="absolute bottom-0 w-full bg-rose-600/40 h-full" />
                         </div>
-                        <span className="text-[10px] text-slate-400 mt-1.5 text-center">Baseline</span>
+                        <span className="text-[10px] text-gray-500 mt-1.5 text-center">Baseline</span>
                       </div>
 
                       {/* Bar 2: Day 30 */}
                       <div className="flex flex-col items-center flex-1 max-w-[80px]">
-                        <div className="text-amber-400 text-xs font-mono font-bold">115m</div>
-                        <div className="w-full bg-slate-800 h-28 rounded-t-lg mt-2 relative overflow-hidden">
+                        <div className="text-amber-600 text-xs font-mono font-bold">115m</div>
+                        <div className="w-full bg-gray-100 h-28 rounded-t-lg mt-2 relative overflow-hidden border border-gray-200">
                           <div className="absolute bottom-0 w-full bg-amber-500/50 h-[64%]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 mt-1.5 text-center">Day 30</span>
+                        <span className="text-[10px] text-gray-500 mt-1.5 text-center">Day 30</span>
                       </div>
 
                       {/* Bar 3: Day 60 */}
                       <div className="flex flex-col items-center flex-1 max-w-[80px]">
-                        <div className="text-indigo-400 text-xs font-mono font-bold">75m</div>
-                        <div className="w-full bg-slate-800 h-28 rounded-t-lg mt-2 relative overflow-hidden">
+                        <div className="text-indigo-600 text-xs font-mono font-bold">75m</div>
+                        <div className="w-full bg-gray-100 h-28 rounded-t-lg mt-2 relative overflow-hidden border border-gray-200">
                           <div className="absolute bottom-0 w-full bg-indigo-500/60 h-[42%]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 mt-1.5 text-center">Day 60</span>
+                        <span className="text-[10px] text-gray-500 mt-1.5 text-center">Day 60</span>
                       </div>
 
                       {/* Bar 4: Current simulated MTTR based on state */}
-                      <div className="flex flex-col items-center flex-1 max-w-[100px] border-2 border-dashed border-cyan-500/30 rounded-xl p-1 bg-cyan-950/10">
-                        <div className="text-cyan-400 text-xs font-mono font-bold flex items-center gap-0.5">
-                          {metrics.mttr}m <Zap className="w-3 h-3 text-cyan-400 fill-cyan-400 inline" />
+                      <div className="flex flex-col items-center flex-1 max-w-[100px] border-2 border-dashed border-cyan-400/50 rounded-xl p-1 bg-cyan-50/40">
+                        <div className="text-cyan-600 text-xs font-mono font-bold flex items-center gap-0.5">
+                          {metrics.mttr}m <Zap className="w-3 h-3 text-cyan-600 fill-cyan-600 inline" />
                         </div>
-                        <div className="w-full bg-slate-800 h-28 rounded-t-lg mt-2 relative overflow-hidden">
+                        <div className="w-full bg-gray-100 h-28 rounded-t-lg mt-2 relative overflow-hidden border border-gray-200">
                           <div
                             className="absolute bottom-0 w-full bg-cyan-500/80 transition-all duration-300"
                             style={{ height: `${Math.max(12, (metrics.mttr / 180) * 100)}%` }}
                           />
                         </div>
-                        <span className="text-[10px] text-cyan-400 font-bold mt-1.5 text-center">Simulated MTTR</span>
+                        <span className="text-[10px] text-cyan-600 font-bold mt-1.5 text-center">Simulated MTTR</span>
                       </div>
 
                       {/* Bar 5: Day 90 Target */}
                       <div className="flex flex-col items-center flex-1 max-w-[80px]">
-                        <div className="text-emerald-400 text-xs font-mono font-bold">25m</div>
-                        <div className="w-full bg-slate-800 h-28 rounded-t-lg mt-2 relative overflow-hidden">
+                        <div className="text-emerald-600 text-xs font-mono font-bold">25m</div>
+                        <div className="w-full bg-gray-100 h-28 rounded-t-lg mt-2 relative overflow-hidden border border-gray-200">
                           <div className="absolute bottom-0 w-full bg-emerald-500/80 h-[14%]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 mt-1.5 text-center">Day 90 Target</span>
+                        <span className="text-[10px] text-gray-500 mt-1.5 text-center">Day 90 Target</span>
                       </div>
                     </div>
                   </div>
@@ -985,50 +985,50 @@ export default function App() {
 
                 {/* THE 5 CORE AIOPS OBJECTIVES */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                  <div className="bg-white p-5 rounded-xl border border-gray-200 hover:border-gray-300 transition-all">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="p-1.5 bg-red-950 text-red-400 rounded border border-red-500/20">
+                      <div className="p-1.5 bg-red-50 text-red-400 rounded border border-red-500/20">
                         <ZapOff className="w-4 h-4" />
                       </div>
-                      <h4 className="text-sm font-bold text-white">1. Suppress Telemetry Noise</h4>
+                      <h4 className="text-sm font-bold text-gray-900">1. Suppress Telemetry Noise</h4>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                    <p className="text-xs text-gray-500 leading-relaxed mb-3">
                       Identify and silence flapping alerts (like static Cisco SD-WAN interfaces). Tuning thresholds from 5s to 30s removes fatigue immediately.
                     </p>
-                    <div className="bg-slate-950 p-2.5 rounded border border-slate-850 text-[11px] text-slate-400">
-                      <span className="text-amber-400 font-semibold block">Key Day 30 Deliverable:</span>
+                    <div className="bg-gray-50 p-2.5 rounded border border-gray-100 text-[11px] text-gray-500">
+                      <span className="text-amber-600 font-semibold block">Key Day 30 Deliverable:</span>
                       Eliminate duplicate network log telemetry inside Splunk indexers.
                     </div>
                   </div>
 
-                  <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                  <div className="bg-white p-5 rounded-xl border border-gray-200 hover:border-gray-300 transition-all">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="p-1.5 bg-indigo-950 text-indigo-400 rounded border border-indigo-500/20">
+                      <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-400/30">
                         <Activity className="w-4 h-4" />
                       </div>
-                      <h4 className="text-sm font-bold text-white">2. Modernize Observability</h4>
+                      <h4 className="text-sm font-bold text-gray-900">2. Modernize Observability</h4>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                    <p className="text-xs text-gray-500 leading-relaxed mb-3">
                       Consolidate SolarWinds legacy metrics and Azure Data Lake triggers. Build Dynatrace Smartscape dependencies into an integrated health dashboard.
                     </p>
-                    <div className="bg-slate-950 p-2.5 rounded border border-slate-850 text-[11px] text-slate-400">
-                      <span className="text-indigo-400 font-semibold block">Key Day 60 Deliverable:</span>
+                    <div className="bg-gray-50 p-2.5 rounded border border-gray-100 text-[11px] text-gray-500">
+                      <span className="text-indigo-600 font-semibold block">Key Day 60 Deliverable:</span>
                       100% unified multi-cloud network mapping &amp; metrics dashboard.
                     </div>
                   </div>
 
-                  <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
+                  <div className="bg-white p-5 rounded-xl border border-gray-200 hover:border-gray-300 transition-all">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="p-1.5 bg-emerald-950 text-emerald-400 rounded border border-emerald-500/20">
+                      <div className="p-1.5 bg-emerald-50 text-emerald-600 rounded border border-emerald-400/30">
                         <Cpu className="w-4 h-4" />
                       </div>
-                      <h4 className="text-sm font-bold text-white">3. Autonomous Remediation</h4>
+                      <h4 className="text-sm font-bold text-gray-900">3. Autonomous Remediation</h4>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                    <p className="text-xs text-gray-500 leading-relaxed mb-3">
                       Initiate automated self-healing workflows: grab thread dumps on Dynatrace CPU spikes, rotate logs dynamically, and clear cache automatically.
                     </p>
-                    <div className="bg-slate-950 p-2.5 rounded border border-slate-850 text-[11px] text-slate-400">
-                      <span className="text-emerald-400 font-semibold block">Key Day 90 Deliverable:</span>
+                    <div className="bg-gray-50 p-2.5 rounded border border-gray-100 text-[11px] text-gray-500">
+                      <span className="text-emerald-600 font-semibold block">Key Day 90 Deliverable:</span>
                       Self-healing auto-ticket enrichment reduces dispatch overhead by 80%.
                     </div>
                   </div>
@@ -1039,48 +1039,48 @@ export default function App() {
             {/* TAB 2: ENVIRONMENT ASSET DISCOVERY */}
             {activeTab === 'assets' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-purple-400 uppercase tracking-wider block">Understand Current Environment</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-purple-600 uppercase tracking-wider block">Understand Current Environment</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         🌐 Environment Asset Discovery (Network, Cloud, Application, Infra)
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Map and assess all current architectures, unmonitored blindspots, and critical operational workflows. Add newly discovered legacy nodes below.
                       </p>
                     </div>
-                    <div className="text-xs bg-slate-950 text-slate-400 px-3 py-1.5 rounded border border-slate-800">
-                      Total Catalogued: <span className="text-purple-400 font-bold">{assets.length} Assets</span>
+                    <div className="text-xs bg-gray-50 text-gray-500 px-3 py-1.5 rounded border border-gray-200">
+                      Total Catalogued: <span className="text-purple-600 font-bold">{assets.length} Assets</span>
                     </div>
                   </div>
 
                   {/* ADD NEW ASSET FORM */}
-                  <form onSubmit={handleAddAsset} className="bg-slate-950 p-5 rounded-xl border border-slate-800/80 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <form onSubmit={handleAddAsset} className="bg-gray-50 p-5 rounded-xl border border-gray-200/80 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-3 flex items-center gap-1">
-                        <Plus className="w-4 h-4 text-purple-400" /> Log Newly Discovered Infrastructure or Application Node
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide mb-3 flex items-center gap-1">
+                        <Plus className="w-4 h-4 text-purple-600" /> Log Newly Discovered Infrastructure or Application Node
                       </h3>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Asset / System Name *</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Asset / System Name *</label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. Oracle Financials DB Cluster"
                         value={newAssetName}
                         onChange={(e) => setNewAssetName(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Category</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Category</label>
                       <select
                         value={newAssetCategory}
                         onChange={(e) => setNewAssetCategory(e.target.value as any)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       >
                         <option value="Network">Network</option>
                         <option value="Cloud">Cloud Architecture</option>
@@ -1090,11 +1090,11 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Business Criticality</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Business Criticality</label>
                       <select
                         value={newAssetCriticality}
                         onChange={(e) => setNewAssetCriticality(e.target.value as any)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       >
                         <option value="Critical">Critical (P1 Risk)</option>
                         <option value="High">High (P2 Risk)</option>
@@ -1104,22 +1104,22 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Current Monitoring Tool</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Current Monitoring Tool</label>
                       <input
                         type="text"
                         placeholder="e.g. Dynatrace, Splunk, SolarWinds, or Unmonitored"
                         value={newAssetTool}
                         onChange={(e) => setNewAssetTool(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Current State Status</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Current State Status</label>
                       <select
                         value={newAssetStatus}
                         onChange={(e) => setNewAssetStatus(e.target.value as any)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       >
                         <option value="Healthy">Healthy (Normal)</option>
                         <option value="Degraded">Degraded (Warn)</option>
@@ -1129,20 +1129,20 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Architecture Notes / Pain Points</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Architecture Notes / Pain Points</label>
                       <input
                         type="text"
                         placeholder="e.g. Handover gaps, high disk fatigue"
                         value={newAssetNotes}
                         onChange={(e) => setNewAssetNotes(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       />
                     </div>
 
                     <div className="md:col-span-3 flex justify-end">
                       <button
                         type="submit"
-                        className="bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                        className="bg-purple-600 hover:bg-purple-500 text-gray-900 text-xs font-bold px-4 py-2 rounded-lg transition-all"
                       >
                         Add System to AIOps Catalog
                       </button>
@@ -1151,7 +1151,7 @@ export default function App() {
 
                   {/* DISCOVERED ASSET LIST */}
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center text-xs text-slate-400 px-3">
+                    <div className="flex justify-between items-center text-xs text-gray-500 px-3">
                       <span>SYSTEM &amp; LAYER</span>
                       <div className="flex gap-16 mr-10">
                         <span>CRITICALITY</span>
@@ -1163,38 +1163,38 @@ export default function App() {
                     {assets.map((asset) => (
                       <div
                         key={asset.id}
-                        className="bg-slate-950 p-4 rounded-xl border border-slate-800/60 hover:border-slate-700 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+                        className="bg-gray-50 p-4 rounded-xl border border-gray-200/60 hover:border-gray-300 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
                       >
                         <div className="flex items-start gap-3">
-                          <div className="p-2 bg-slate-900 rounded-lg border border-slate-800">
-                            {asset.category === 'Application' && <Cpu className="w-5 h-5 text-purple-400" />}
-                            {asset.category === 'Cloud' && <Cloud className="w-5 h-5 text-sky-400" />}
-                            {asset.category === 'Network' && <NetworkIcon className="w-5 h-5 text-emerald-400" />}
-                            {asset.category === 'Infrastructure' && <Server className="w-5 h-5 text-pink-400" />}
+                          <div className="p-2 bg-white rounded-lg border border-gray-200">
+                            {asset.category === 'Application' && <Cpu className="w-5 h-5 text-purple-600" />}
+                            {asset.category === 'Cloud' && <Cloud className="w-5 h-5 text-sky-600" />}
+                            {asset.category === 'Network' && <NetworkIcon className="w-5 h-5 text-emerald-600" />}
+                            {asset.category === 'Infrastructure' && <Server className="w-5 h-5 text-pink-600" />}
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-white">{asset.name}</span>
-                              <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
+                              <span className="text-sm font-bold text-gray-900">{asset.name}</span>
+                              <span className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
                                 {asset.category}
                               </span>
                             </div>
-                            <p className="text-xs text-slate-400 mt-1">{asset.notes}</p>
+                            <p className="text-xs text-gray-500 mt-1">{asset.notes}</p>
                           </div>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-end">
                           <div>
                             <span className={`text-[10px] font-bold px-2 py-1 rounded ${
-                              asset.criticality === 'Critical' ? 'bg-rose-950 text-rose-300 border border-rose-800' :
-                              asset.criticality === 'High' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                              'bg-slate-900 text-slate-300 border border-slate-800'
+                              asset.criticality === 'Critical' ? 'bg-rose-50 text-rose-300 border border-rose-200' :
+                              asset.criticality === 'High' ? 'bg-amber-50 text-amber-700 border border-amber-200' :
+                              'bg-white text-gray-600 border border-gray-200'
                             }`}>
                               {asset.criticality}
                             </span>
                           </div>
 
-                          <div className="text-xs text-slate-300 font-mono">
+                          <div className="text-xs text-gray-600 font-mono">
                             {asset.monitoringTool}
                           </div>
 
@@ -1208,7 +1208,7 @@ export default function App() {
 
                           <button
                             onClick={() => handleDeleteAsset(asset.id)}
-                            className="p-1.5 hover:bg-slate-900 text-slate-500 hover:text-rose-400 rounded-lg transition-all"
+                            className="p-1.5 hover:bg-white text-gray-400 hover:text-rose-600 rounded-lg transition-all"
                             title="Delete Asset"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -1219,12 +1219,12 @@ export default function App() {
                   </div>
 
                   {/* AI RECOMMENDATION BOX */}
-                  <div className="bg-purple-950/20 border border-purple-900/40 p-4 rounded-xl mt-6">
-                    <h4 className="text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-1.5 mb-1">
-                      <Zap className="w-4 h-4 fill-purple-400" /> Assessment Strategy &amp; AI Integration Recommendations
+                  <div className="bg-purple-50/60 border border-purple-200 p-4 rounded-xl mt-6">
+                    <h4 className="text-xs font-bold text-purple-600 uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                      <Zap className="w-4 h-4 fill-purple-600" /> Assessment Strategy &amp; AI Integration Recommendations
                     </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Based on current system cataloging, you have <span className="font-bold text-white">{assets.filter(a => a.status === 'Unmonitored').length} unmonitored systems</span> and <span className="font-bold text-white">{assets.filter(a => a.status === 'Critical').length} critical systems degrading</span>. High-priority advice: Build immediate syslog forwarding from the Unmonitored nodes into Splunk to eliminate critical security and operational blindspots before Day 30 review.
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Based on current system cataloging, you have <span className="font-bold text-gray-900">{assets.filter(a => a.status === 'Unmonitored').length} unmonitored systems</span> and <span className="font-bold text-gray-900">{assets.filter(a => a.status === 'Critical').length} critical systems degrading</span>. High-priority advice: Build immediate syslog forwarding from the Unmonitored nodes into Splunk to eliminate critical security and operational blindspots before Day 30 review.
                     </p>
                   </div>
                 </div>
@@ -1234,90 +1234,90 @@ export default function App() {
             {/* TAB 3: STAKEHOLDERS ALIGNMENT & CREDIBILITY TRACKER */}
             {activeTab === 'stakeholders' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-emerald-400 uppercase tracking-wider block">Build Stakeholder Relationships</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-emerald-600 uppercase tracking-wider block">Build Stakeholder Relationships</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         👥 Stakeholders Relationship Map &amp; Alignment Tracker
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         At this initial stage, key leaders judge your communication, credibility, and leadership presence. Track, score, and align crucial teams.
                       </p>
                     </div>
-                    <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                      <div className="text-[10px] text-slate-400 uppercase tracking-widest">Average Team Alignment</div>
-                      <div className="text-lg font-black text-emerald-400 font-mono">
+                    <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 text-center">
+                      <div className="text-[10px] text-gray-500 uppercase tracking-widest">Average Team Alignment</div>
+                      <div className="text-lg font-black text-emerald-600 font-mono">
                         {Math.round(stakeholders.reduce((sum, s) => sum + s.alignment, 0) / stakeholders.length)}%
                       </div>
                     </div>
                   </div>
 
                   {/* STAKEHOLDER MATRIX EXPLAINER */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 bg-slate-950 p-4 rounded-xl border border-slate-850">
-                    <div className="p-3 bg-slate-900/40 rounded border border-slate-800">
-                      <div className="text-xs font-bold text-white flex items-center gap-1.5 mb-1">
-                        <UserCheck className="w-4 h-4 text-emerald-400" /> Communication Strategy
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <div className="p-3 bg-gray-50/60 rounded border border-gray-200">
+                      <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5 mb-1">
+                        <UserCheck className="w-4 h-4 text-emerald-600" /> Communication Strategy
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                      <p className="text-[11px] text-gray-500 leading-relaxed">
                         Host weekly 1-on-1 feedback slots with Skeptical managers to explain AIOps playbooks instead of imposing high-level frameworks.
                       </p>
                     </div>
-                    <div className="p-3 bg-slate-900/40 rounded border border-slate-800">
-                      <div className="text-xs font-bold text-white flex items-center gap-1.5 mb-1">
-                        <Award className="w-4 h-4 text-cyan-400" /> Building Credibility
+                    <div className="p-3 bg-gray-50/60 rounded border border-gray-200">
+                      <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5 mb-1">
+                        <Award className="w-4 h-4 text-cyan-600" /> Building Credibility
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                      <p className="text-[11px] text-gray-500 leading-relaxed">
                         Deliver quick wins (like mutes on noisy Cisco WAN flapping alerts) first. Demonstrate real, visible downtime reduction in weeks.
                       </p>
                     </div>
-                    <div className="p-3 bg-slate-900/40 rounded border border-slate-800">
-                      <div className="text-xs font-bold text-white flex items-center gap-1.5 mb-1">
-                        <Building className="w-4 h-4 text-indigo-400" /> Leadership Presence
+                    <div className="p-3 bg-gray-50/60 rounded border border-gray-200">
+                      <div className="text-xs font-bold text-gray-900 flex items-center gap-1.5 mb-1">
+                        <Building className="w-4 h-4 text-indigo-600" /> Leadership Presence
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                      <p className="text-[11px] text-gray-500 leading-relaxed">
                         Own failures openly, share automated dashboard access with vendors and NOC teams, and run reviews with standard metrics (SLA, MTTR).
                       </p>
                     </div>
                   </div>
 
                   {/* ADD STAKEHOLDER FORM */}
-                  <form onSubmit={handleAddStakeholder} className="bg-slate-950 p-5 rounded-xl border border-slate-800/80 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <form onSubmit={handleAddStakeholder} className="bg-gray-50 p-5 rounded-xl border border-gray-200/80 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-2 flex items-center gap-1">
-                        <Plus className="w-4 h-4 text-emerald-400" /> Add Critical Stakeholder Profile
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2 flex items-center gap-1">
+                        <Plus className="w-4 h-4 text-emerald-600" /> Add Critical Stakeholder Profile
                       </h3>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Stakeholder Name *</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Stakeholder Name *</label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. Robert Vance"
                         value={newStakeholderName}
                         onChange={(e) => setNewStakeholderName(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-emerald-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Role / Designation</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Role / Designation</label>
                       <input
                         type="text"
                         placeholder="e.g. Director of Infrastructure"
                         value={newStakeholderRole}
                         onChange={(e) => setNewStakeholderRole(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-emerald-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Team Affiliation</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Team Affiliation</label>
                       <select
                         value={newStakeholderTeam}
                         onChange={(e) => setNewStakeholderTeam(e.target.value as any)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-emerald-400"
                       >
                         <option value="NOC">NOC Teams</option>
                         <option value="Infrastructure">Infrastructure Teams</option>
@@ -1330,11 +1330,11 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">AIOps Sentiment Mood</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">AIOps Sentiment Mood</label>
                       <select
                         value={newStakeholderSentiment}
                         onChange={(e) => setNewStakeholderSentiment(e.target.value as any)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-emerald-400"
                       >
                         <option value="Champion">Champion (Highly Enthusiastic)</option>
                         <option value="Supportive">Supportive (Happy to Help)</option>
@@ -1345,32 +1345,32 @@ export default function App() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Current Alignment Level ({newStakeholderAlignment}%)</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Current Alignment Level ({newStakeholderAlignment}%)</label>
                       <input
                         type="range"
                         min="0"
                         max="100"
                         value={newStakeholderAlignment}
                         onChange={(e) => setNewStakeholderAlignment(Number(e.target.value))}
-                        className="w-full h-8 bg-transparent accent-emerald-500 cursor-pointer"
+                        className="w-full h-8 bg-transparent accent-emerald-600 cursor-pointer"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Collaboration Notes</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Collaboration Notes</label>
                       <input
                         type="text"
                         placeholder="e.g. Worried about alert deduplication filters."
                         value={newStakeholderNotes}
                         onChange={(e) => setNewStakeholderNotes(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-emerald-400"
                       />
                     </div>
 
                     <div className="md:col-span-3 flex justify-end">
                       <button
                         type="submit"
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-gray-900 text-xs font-bold px-4 py-2 rounded-lg transition-all"
                       >
                         Register Stakeholder Profile
                       </button>
@@ -1382,12 +1382,12 @@ export default function App() {
                     {stakeholders.map((s) => {
                       const badge = getSentimentBadge(s.sentiment);
                       return (
-                        <div key={s.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                        <div key={s.id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between">
                           <div className="space-y-2">
                             <div className="flex justify-between items-start">
                               <div>
-                                <h4 className="text-sm font-bold text-white">{s.name}</h4>
-                                <p className="text-xs text-slate-400">{s.role} &bull; <span className="text-indigo-400 font-mono text-[11px]">{s.team}</span></p>
+                                <h4 className="text-sm font-bold text-gray-900">{s.name}</h4>
+                                <p className="text-xs text-gray-500">{s.role} &bull; <span className="text-indigo-600 font-mono text-[11px]">{s.team}</span></p>
                               </div>
                               <button
                                 onClick={() => toggleStakeholderSentiment(s.id)}
@@ -1397,13 +1397,13 @@ export default function App() {
                                 {badge.label}
                               </button>
                             </div>
-                            <p className="text-xs text-slate-300 leading-relaxed italic">"{s.notes}"</p>
+                            <p className="text-xs text-gray-600 leading-relaxed italic">"{s.notes}"</p>
                           </div>
 
-                          <div className="mt-4 pt-3 border-t border-slate-900 space-y-2">
-                            <div className="flex justify-between items-center text-[10px] text-slate-400">
+                          <div className="mt-4 pt-3 border-t border-gray-100 space-y-2">
+                            <div className="flex justify-between items-center text-[10px] text-gray-500">
                               <span>Credibility &amp; Alignment Score</span>
-                              <span className="font-bold font-mono text-emerald-400">{s.alignment}%</span>
+                              <span className="font-bold font-mono text-emerald-600">{s.alignment}%</span>
                             </div>
                             <input
                               type="range"
@@ -1411,9 +1411,9 @@ export default function App() {
                               max="100"
                               value={s.alignment}
                               onChange={(e) => updateStakeholderAlignment(s.id, Number(e.target.value))}
-                              className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                              className="w-full h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                             />
-                            <div className="text-[9px] text-slate-500 text-right">
+                            <div className="text-[9px] text-gray-400 text-right">
                               Last interaction: {s.lastInteraction}
                             </div>
                           </div>
@@ -1428,26 +1428,26 @@ export default function App() {
             {/* TAB 4: OBSERVABILITY MATURITY RADAR */}
             {activeTab === 'maturity' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex justify-between items-center mb-6">
                     <div>
-                      <span className="text-xs font-mono text-amber-400 uppercase tracking-wider block">Assess Monitoring &amp; Observability</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-amber-600 uppercase tracking-wider block">Assess Monitoring &amp; Observability</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         📈 Observability Maturity &amp; Tooling Gap Assessment
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Review legacy silos against AI operations targets. Use the interactive sliders below to evaluate your current monitoring tiers.
                       </p>
                     </div>
-                    <span className="text-xs text-slate-400 bg-slate-950 px-2 py-1 rounded border border-slate-800">
+                    <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-200">
                       Scale: 1.0 (Low) to 5.0 (Optimal)
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     {/* MATURITY SLIDERS */}
-                    <div className="space-y-4 bg-slate-950 p-5 rounded-xl border border-slate-850">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide border-b border-slate-900 pb-2">
+                    <div className="space-y-4 bg-gray-50 p-5 rounded-xl border border-gray-100">
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide border-b border-gray-100 pb-2">
                         Interactive Maturity Evaluator
                       </h3>
 
@@ -1456,16 +1456,16 @@ export default function App() {
                         return (
                           <div key={key} className="space-y-1 group">
                             <div className="flex justify-between items-center text-xs">
-                              <span className="font-bold text-white capitalize flex items-center gap-2">
+                              <span className="font-bold text-gray-900 capitalize flex items-center gap-2">
                                 {key.replace(/([A-Z])/g, ' $1')} Monitoring
                                 <button
                                   onClick={() => setEditingMaturityTool(editingMaturityTool === key ? null : key)}
-                                  className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-amber-400 text-[10px] transition-opacity"
+                                  className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-amber-600 text-[10px] transition-opacity"
                                 >
                                   ✎
                                 </button>
                               </span>
-                              <span className="font-mono text-amber-400 font-bold bg-amber-950/40 px-2 py-0.5 rounded border border-amber-500/20">
+                              <span className="font-mono text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-400/30">
                                 {item.score.toFixed(1)} / 5.0
                               </span>
                             </div>
@@ -1476,20 +1476,20 @@ export default function App() {
                               step="0.1"
                               value={item.score}
                               onChange={(e) => handleMaturityChange(key, Number(e.target.value))}
-                              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                              className="w-full h-1.5 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
                             />
                             {editingMaturityTool === key ? (
                               <input
                                 type="text"
                                 value={item.label}
                                 onChange={(e) => setMaturityScores({...maturityScores, [key]: {...item, label: e.target.value}})}
-                                className="w-full bg-slate-900 border border-slate-800 text-slate-300 text-[10px] rounded px-2 py-1 mt-1"
+                                className="w-full bg-white border border-gray-200 text-gray-600 text-[10px] rounded px-2 py-1 mt-1"
                                 onBlur={() => setEditingMaturityTool(null)}
                                 onKeyDown={(e) => e.key === 'Enter' && setEditingMaturityTool(null)}
                                 autoFocus
                               />
                             ) : (
-                              <p className="text-[10px] text-slate-400 font-medium">{item.label}</p>
+                              <p className="text-[10px] text-gray-500 font-medium">{item.label}</p>
                             )}
                           </div>
                         );
@@ -1497,41 +1497,41 @@ export default function App() {
                     </div>
 
                     {/* AI DIAGNOSTICS & GAP ANALYSIS */}
-                    <div className="bg-slate-950 p-5 rounded-xl border border-slate-850 flex flex-col justify-between">
+                    <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide border-b border-slate-900 pb-2 mb-3">
+                        <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide border-b border-gray-100 pb-2 mb-3">
                           Real-time AI Tooling Gap Analysis
                         </h3>
 
-                        <div className="space-y-3 text-xs text-slate-300">
+                        <div className="space-y-3 text-xs text-gray-600">
                           <div className="flex gap-2">
-                            <div className="p-1 text-orange-400">🔥</div>
+                            <div className="p-1 text-orange-600">🔥</div>
                             <div>
-                              <strong className="text-white">Splunk Gap:</strong> High volume of raw logs indexing, but zero correlation rules exist to group individual server events into coherent multi-tier outages.
+                              <strong className="text-gray-900">Splunk Gap:</strong> High volume of raw logs indexing, but zero correlation rules exist to group individual server events into coherent multi-tier outages.
                             </div>
                           </div>
 
                           <div className="flex gap-2">
-                            <div className="p-1 text-emerald-400">✨</div>
+                            <div className="p-1 text-emerald-600">✨</div>
                             <div>
-                              <strong className="text-white">Dynatrace Integration:</strong> Deep APM application traces are running, but legacy network nodes are completely missing from the trace topology.
+                              <strong className="text-gray-900">Dynatrace Integration:</strong> Deep APM application traces are running, but legacy network nodes are completely missing from the trace topology.
                             </div>
                           </div>
 
                           <div className="flex gap-2">
-                            <div className="p-1 text-amber-400">⚠️</div>
+                            <div className="p-1 text-amber-600">⚠️</div>
                             <div>
-                              <strong className="text-white">Event Correlation Score ({maturityScores.eventCorrelation.score.toFixed(1)}/5.0):</strong> Critical weakness. Without AIOps event correlation, every minor network flap triggers a standalone ticket, forcing NOC teams to manually link incidents.
+                              <strong className="text-gray-900">Event Correlation Score ({maturityScores.eventCorrelation.score.toFixed(1)}/5.0):</strong> Critical weakness. Without AIOps event correlation, every minor network flap triggers a standalone ticket, forcing NOC teams to manually link incidents.
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="bg-slate-900 p-3 rounded-lg border border-slate-800/80 mt-4">
-                        <div className="text-[10px] uppercase font-mono tracking-wider text-amber-400 font-bold mb-1">
+                      <div className="bg-white p-3 rounded-lg border border-gray-200/80 mt-4">
+                        <div className="text-[10px] uppercase font-mono tracking-wider text-amber-600 font-bold mb-1">
                           RECOMMENDED REMEDIATION ACTIONS:
                         </div>
-                        <ul className="text-[10px] text-slate-400 list-disc list-inside space-y-1">
+                        <ul className="text-[10px] text-gray-500 list-disc list-inside space-y-1">
                           <li>Install Splunk ITSI Event Analytics to aggregate overlapping alerts.</li>
                           <li>Sync Dynatrace Smartscape network tags with core CMDB records.</li>
                           <li>Deploy threshold tuning on flapping Cisco SD-WAN interfaces.</li>
@@ -1541,20 +1541,20 @@ export default function App() {
                   </div>
 
                   {/* OBSERVABILITY PILLARS CHART */}
-                  <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 className="text-xs font-bold text-slate-300 uppercase tracking-widest mb-3 text-center">
+                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <h4 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 text-center">
                       Target Observability Maturity Level Progress
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                       {Object.keys(maturityScores).map((key) => {
                         const item = maturityScores[key as keyof typeof maturityScores];
                         return (
-                          <div key={key} className="bg-slate-900 p-3 rounded-lg border border-slate-800 text-center flex flex-col justify-between">
-                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-wider mb-2">{key.replace(/([A-Z])/g, ' $1')}</div>
-                            <div className="w-16 h-16 mx-auto rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center mb-2 relative">
-                              <span className="text-sm font-black text-amber-400 font-mono">{item.score.toFixed(1)}</span>
+                          <div key={key} className="bg-white p-3 rounded-lg border border-gray-200 text-center flex flex-col justify-between">
+                            <div className="text-[10px] font-bold uppercase text-gray-500 tracking-wider mb-2">{key.replace(/([A-Z])/g, ' $1')}</div>
+                            <div className="w-16 h-16 mx-auto rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center mb-2 relative">
+                              <span className="text-sm font-black text-amber-600 font-mono">{item.score.toFixed(1)}</span>
                               <svg className="absolute inset-0 w-full h-full -rotate-90">
-                                <circle cx="32" cy="32" r="28" fill="none" stroke="#1e293b" strokeWidth="4" />
+                                <circle cx="32" cy="32" r="28" fill="none" stroke="#e5e7eb" strokeWidth="4" />
                                 <circle
                                   cx="32"
                                   cy="32"
@@ -1567,7 +1567,7 @@ export default function App() {
                                 />
                               </svg>
                             </div>
-                            <span className="text-[9px] text-slate-400">{item.score > 3.5 ? 'Advanced' : item.score > 2.5 ? 'Moderate' : 'Critical Gap'}</span>
+                            <span className="text-[9px] text-gray-500">{item.score > 3.5 ? 'Advanced' : item.score > 2.5 ? 'Moderate' : 'Critical Gap'}</span>
                           </div>
                         );
                       })}
@@ -1580,22 +1580,22 @@ export default function App() {
             {/* TAB 5: QUICK WINS & NOISE REDUCTION HUB */}
             {activeTab === 'quickwins' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-yellow-400 uppercase tracking-wider block">Identify Quick Wins (Day 30 Expectation)</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-yellow-600 uppercase tracking-wider block">Identify Quick Wins (Day 30 Expectation)</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         ⚡ Quick Wins Noise Reduction Hub (Top 10 Actions)
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Leadership demands visible momentum. Toggle completed wins below to see simulated alert noise and MTTR drop in real time on the live dashboard.
                       </p>
                     </div>
                     <button
                       onClick={handleOptimizeAllQuickWins}
-                      className="bg-yellow-600 hover:bg-yellow-500 text-slate-950 text-xs font-black px-4 py-2 rounded-lg transition-all flex items-center gap-1.5"
+                      className="bg-yellow-600 hover:bg-yellow-500 text-gray-900 text-xs font-black px-4 py-2 rounded-lg transition-all flex items-center gap-1.5"
                     >
-                      <Zap className="w-4 h-4 fill-slate-950" /> Execute All Wins
+                      <Zap className="w-4 h-4 fill-yellow-950" /> Execute All Wins
                     </button>
                   </div>
 
@@ -1603,29 +1603,29 @@ export default function App() {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* LEFT COLUMN: IDENTIFIED WINS */}
                     <div className="space-y-3">
-                      <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                        <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Identified (Awaiting Execution)</span>
-                        <span className="text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-bold font-mono">
+                      <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">Identified (Awaiting Execution)</span>
+                        <span className="text-[10px] bg-white text-gray-500 px-2 py-0.5 rounded font-bold font-mono">
                           {quickWins.filter(qw => qw.status === 'Identified').length}
                         </span>
                       </div>
 
                       {quickWins.filter(qw => qw.status === 'Identified').map((qw) => (
-                        <div key={qw.id} className="bg-slate-950 p-4 rounded-xl border border-slate-850 hover:border-amber-500/20 transition-all space-y-3">
+                        <div key={qw.id} className="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-amber-400/30 transition-all space-y-3">
                           <div>
-                            <span className="text-[9px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
+                            <span className="text-[9px] bg-white text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
                               {qw.category}
                             </span>
-                            <h4 className="text-xs font-bold text-white mt-1.5">{qw.title}</h4>
-                            <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{qw.description}</p>
+                            <h4 className="text-xs font-bold text-gray-900 mt-1.5">{qw.title}</h4>
+                            <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">{qw.description}</p>
                           </div>
-                          <div className="flex justify-between items-center text-[10px] border-t border-slate-900 pt-2.5">
-                            <span className="text-slate-400">Impact: <strong className="text-emerald-400">{qw.impact}</strong></span>
-                            <span className="text-slate-400">Effort: <strong className="text-yellow-400">{qw.effort}</strong></span>
+                          <div className="flex justify-between items-center text-[10px] border-t border-gray-100 pt-2.5">
+                            <span className="text-gray-500">Impact: <strong className="text-emerald-600">{qw.impact}</strong></span>
+                            <span className="text-gray-500">Effort: <strong className="text-yellow-600">{qw.effort}</strong></span>
                           </div>
                           <button
                             onClick={() => toggleQuickWinStatus(qw.id)}
-                            className="w-full bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs py-1.5 rounded font-semibold transition-all"
+                            className="w-full bg-white hover:bg-gray-100 text-gray-700 text-xs py-1.5 rounded font-semibold transition-all"
                           >
                             Mark &ldquo;In Progress&rdquo;
                           </button>
@@ -1635,29 +1635,29 @@ export default function App() {
 
                     {/* MIDDLE COLUMN: IN PROGRESS WINS */}
                     <div className="space-y-3">
-                      <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                        <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">In Progress (Tuning)</span>
-                        <span className="text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-bold font-mono">
+                      <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <span className="text-xs font-bold text-cyan-600 uppercase tracking-wider">In Progress (Tuning)</span>
+                        <span className="text-[10px] bg-white text-gray-500 px-2 py-0.5 rounded font-bold font-mono">
                           {quickWins.filter(qw => qw.status === 'In Progress').length}
                         </span>
                       </div>
 
                       {quickWins.filter(qw => qw.status === 'In Progress').map((qw) => (
-                        <div key={qw.id} className="bg-slate-950 p-4 rounded-xl border border-slate-850 hover:border-cyan-500/20 transition-all space-y-3">
+                        <div key={qw.id} className="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-cyan-400/30 transition-all space-y-3">
                           <div>
-                            <span className="text-[9px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
+                            <span className="text-[9px] bg-white text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider font-semibold">
                               {qw.category}
                             </span>
-                            <h4 className="text-xs font-bold text-white mt-1.5">{qw.title}</h4>
-                            <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{qw.description}</p>
+                            <h4 className="text-xs font-bold text-gray-900 mt-1.5">{qw.title}</h4>
+                            <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">{qw.description}</p>
                           </div>
-                          <div className="flex justify-between items-center text-[10px] border-t border-slate-900 pt-2.5">
-                            <span className="text-slate-400">Impact: <strong className="text-emerald-400">{qw.impact}</strong></span>
-                            <span className="text-slate-400">Effort: <strong className="text-yellow-400">{qw.effort}</strong></span>
+                          <div className="flex justify-between items-center text-[10px] border-t border-gray-100 pt-2.5">
+                            <span className="text-gray-500">Impact: <strong className="text-emerald-600">{qw.impact}</strong></span>
+                            <span className="text-gray-500">Effort: <strong className="text-yellow-600">{qw.effort}</strong></span>
                           </div>
                           <button
                             onClick={() => toggleQuickWinStatus(qw.id)}
-                            className="w-full bg-cyan-950/40 border border-cyan-500/30 hover:bg-cyan-950 text-cyan-400 text-xs py-1.5 rounded font-semibold transition-all"
+                            className="w-full bg-cyan-50 border border-cyan-400/50 hover:bg-cyan-50 text-cyan-600 text-xs py-1.5 rounded font-semibold transition-all"
                           >
                             Mark &ldquo;Completed&rdquo;
                           </button>
@@ -1667,31 +1667,31 @@ export default function App() {
 
                     {/* RIGHT COLUMN: COMPLETED WINS */}
                     <div className="space-y-3">
-                      <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                        <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Completed (Live Value Saved)</span>
-                        <span className="text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-bold font-mono">
+                      <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 flex justify-between items-center">
+                        <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Completed (Live Value Saved)</span>
+                        <span className="text-[10px] bg-white text-gray-500 px-2 py-0.5 rounded font-bold font-mono">
                           {quickWins.filter(qw => qw.status === 'Completed').length}
                         </span>
                       </div>
 
                       {quickWins.filter(qw => qw.status === 'Completed').map((qw) => (
-                        <div key={qw.id} className="bg-slate-950 p-4 rounded-xl border border-slate-850 hover:border-emerald-500/20 transition-all space-y-3 bg-emerald-950/10">
+                        <div key={qw.id} className="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-emerald-400/30 transition-all space-y-3 bg-emerald-50/40">
                           <div>
                             <div className="flex justify-between items-start">
-                              <span className="text-[9px] bg-emerald-900/20 text-emerald-300 px-2 py-0.5 rounded uppercase tracking-wider font-semibold border border-emerald-500/30">
+                              <span className="text-[9px] bg-emerald-900/20 text-emerald-700 px-2 py-0.5 rounded uppercase tracking-wider font-semibold border border-emerald-400/50">
                                 {qw.category}
                               </span>
-                              <CheckCircle className="w-4 h-4 text-emerald-400" />
+                              <CheckCircle className="w-4 h-4 text-emerald-600" />
                             </div>
-                            <h4 className="text-xs font-bold text-white mt-1.5">{qw.title}</h4>
-                            <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{qw.description}</p>
+                            <h4 className="text-xs font-bold text-gray-900 mt-1.5">{qw.title}</h4>
+                            <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">{qw.description}</p>
                           </div>
-                          <div className="bg-emerald-950/20 p-2 rounded text-[10px] text-emerald-400 border border-emerald-500/10">
+                          <div className="bg-emerald-50/60 p-2 rounded text-[10px] text-emerald-600 border border-emerald-300/30">
                             <strong>Observed Impact:</strong> {qw.metricImproved}
                           </div>
                           <button
                             onClick={() => toggleQuickWinStatus(qw.id)}
-                            className="w-full bg-slate-900 hover:bg-slate-850 text-slate-400 text-xs py-1.5 rounded font-semibold transition-all"
+                            className="w-full bg-white hover:bg-gray-100 text-gray-500 text-xs py-1.5 rounded font-semibold transition-all"
                           >
                             Revert Status
                           </button>
@@ -1701,11 +1701,11 @@ export default function App() {
                   </div>
 
                   {/* VISIBLE MOMENTUM TIP */}
-                  <div className="bg-amber-950/20 border border-amber-900/40 p-4 rounded-xl mt-6">
-                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1.5 mb-1">
-                      <Zap className="w-4 h-4 fill-amber-400" /> Executive Momentum Tip
+                  <div className="bg-amber-50/60 border border-amber-200 p-4 rounded-xl mt-6">
+                    <h4 className="text-xs font-bold text-amber-600 uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                      <Zap className="w-4 h-4 fill-amber-600" /> Executive Momentum Tip
                     </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-xs text-gray-600 leading-relaxed">
                       Completing at least 3 quick wins before Day 30 builds incredible leadership trust. This gives you the leverage to ask for the budget necessary for complex Days 30-60 automated self-healing projects.
                     </p>
                   </div>
@@ -1716,35 +1716,35 @@ export default function App() {
             {/* TAB 6: AUTOMATION PIPELINE LAB */}
             {activeTab === 'automation' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-pink-400 uppercase tracking-wider block">Days 30–60 Automation &amp; Enrichment</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-pink-600 uppercase tracking-wider block">Days 30–60 Automation &amp; Enrichment</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         ⚙️ Interactive Automation Workflow Pipeline Builder
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Configure self-healing rules, auto-ticket enrichments, and alert mutes to accelerate resolution without manual intervention.
                       </p>
                     </div>
-                    <div className="text-xs bg-slate-950 text-slate-400 px-3 py-1.5 rounded border border-slate-800">
-                      Active Workflows: <span className="text-pink-400 font-bold">{workflows.length}</span>
+                    <div className="text-xs bg-gray-50 text-gray-500 px-3 py-1.5 rounded border border-gray-200">
+                      Active Workflows: <span className="text-pink-600 font-bold">{workflows.length}</span>
                     </div>
                   </div>
 
                   {/* CREATE WORKFLOW BUILDER */}
-                  <form onSubmit={handleCreateWorkflow} className="bg-slate-950 p-5 rounded-xl border border-slate-800/80 mb-6 space-y-4">
-                    <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide border-b border-slate-900 pb-2 flex items-center gap-1">
-                      <Play className="w-4 h-4 text-pink-400" /> Assemble Auto-Healing Pipeline
+                  <form onSubmit={handleCreateWorkflow} className="bg-gray-50 p-5 rounded-xl border border-gray-200/80 mb-6 space-y-4">
+                    <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide border-b border-gray-100 pb-2 flex items-center gap-1">
+                      <Play className="w-4 h-4 text-pink-600" /> Assemble Auto-Healing Pipeline
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Trigger Event (SRE Alert)</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Trigger Event (SRE Alert)</label>
                         <select
                           value={customWorkflowTrigger}
                           onChange={(e) => setCustomWorkflowTrigger(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-pink-400"
                         >
                           <option value="Dynatrace JVM Alert (>92%)">Dynatrace JVM Alert (&gt;92%)</option>
                           <option value="Kubernetes CrashLoopBackOff">Kubernetes CrashLoopBackOff</option>
@@ -1754,11 +1754,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Filter Rule (Condition)</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Filter Rule (Condition)</label>
                         <select
                           value={customWorkflowCondition}
                           onChange={(e) => setCustomWorkflowCondition(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-pink-400"
                         >
                           <option value="Service equals PaymentAPI">Service equals "PaymentAPI"</option>
                           <option value="Namespace is CoreServices">Namespace is "CoreServices"</option>
@@ -1768,11 +1768,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Self-Healing Execution Action</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Self-Healing Execution Action</label>
                         <select
                           value={customWorkflowAction}
                           onChange={(e) => setCustomWorkflowAction(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-pink-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-pink-400"
                         >
                           <option value="Clear Temp Logs & Restart Container">Clear Temp Logs &amp; Restart Container</option>
                           <option value="Capture JVM Thread Dump & Auto-Enrich Ticket">Capture JVM Thread Dump &amp; Auto-Enrich Ticket</option>
@@ -1785,7 +1785,7 @@ export default function App() {
                     <div className="flex justify-end pt-2">
                       <button
                         type="submit"
-                        className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                        className="bg-pink-600 hover:bg-pink-500 text-gray-900 text-xs font-bold px-4 py-2 rounded-lg transition-all"
                       >
                         Activate Pipeline Workflow
                       </button>
@@ -1795,42 +1795,42 @@ export default function App() {
                   {/* ACTIVE WORKFLOW LIST */}
                   <div className="space-y-3">
                     {workflows.map((wf) => (
-                      <div key={wf.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-slate-700 transition-all">
+                      <div key={wf.id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-gray-300 transition-all">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono font-bold text-pink-400 bg-pink-950/20 px-2 py-0.5 rounded border border-pink-500/20">
+                            <span className="text-xs font-mono font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded border border-pink-400/30">
                               TRIGGER
                             </span>
-                            <span className="text-xs text-white font-bold">{wf.trigger}</span>
+                            <span className="text-xs text-gray-900 font-bold">{wf.trigger}</span>
                           </div>
 
-                          <div className="flex flex-wrap items-center gap-y-1 gap-x-2 text-[11px] text-slate-400">
-                            <span>If: <strong className="text-slate-200">{wf.conditions.join(', ')}</strong></span>
-                            <span className="text-slate-500">&bull;</span>
-                            <span>Execute: <strong className="text-emerald-400">{wf.actions.join(', ')}</strong></span>
+                          <div className="flex flex-wrap items-center gap-y-1 gap-x-2 text-[11px] text-gray-500">
+                            <span>If: <strong className="text-gray-700">{wf.conditions.join(', ')}</strong></span>
+                            <span className="text-gray-400">&bull;</span>
+                            <span>Execute: <strong className="text-emerald-600">{wf.actions.join(', ')}</strong></span>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
                           <div className="text-right">
-                            <span className="block text-[10px] text-slate-500 uppercase tracking-wider">Auto-Executions</span>
-                            <span className="text-xs font-mono font-bold text-slate-300">{wf.executions} runs</span>
+                            <span className="block text-[10px] text-gray-400 uppercase tracking-wider">Auto-Executions</span>
+                            <span className="text-xs font-mono font-bold text-gray-600">{wf.executions} runs</span>
                           </div>
 
                           <div className="text-right">
-                            <span className="block text-[10px] text-slate-500 uppercase tracking-wider">Avg Time Saved</span>
-                            <span className="text-xs font-mono font-bold text-yellow-400">{wf.avgTimeSavedMin} min / run</span>
+                            <span className="block text-[10px] text-gray-400 uppercase tracking-wider">Avg Time Saved</span>
+                            <span className="text-xs font-mono font-bold text-yellow-600">{wf.avgTimeSavedMin} min / run</span>
                           </div>
 
                           <div>
-                            <span className="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase px-2 py-0.5 rounded border border-emerald-500/20">
+                            <span className="bg-emerald-500/10 text-emerald-600 text-[10px] font-bold uppercase px-2 py-0.5 rounded border border-emerald-400/30">
                               {wf.status}
                             </span>
                           </div>
 
                           <button
                             onClick={() => deleteWorkflow(wf.id)}
-                            className="p-1 hover:bg-slate-900 text-slate-500 hover:text-rose-400 rounded-lg transition-all"
+                            className="p-1 hover:bg-white text-gray-400 hover:text-rose-600 rounded-lg transition-all"
                             title="Delete Workflow"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -1846,54 +1846,54 @@ export default function App() {
             {/* TAB 7: ROADMAP & GOVERNANCE FRAMEWORK */}
             {activeTab === 'roadmap' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="mb-6">
-                    <span className="text-xs font-mono text-blue-400 uppercase tracking-wider block">Define AIOps Observability Roadmap</span>
-                    <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <span className="text-xs font-mono text-blue-600 uppercase tracking-wider block">Define AIOps Observability Roadmap</span>
+                    <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                       🗺️ 12-24 Month Roadmap &amp; Governance Framework
                     </h2>
-                    <p className="text-slate-400 text-sm mt-1">
+                    <p className="text-gray-500 text-sm mt-1">
                       Keep the entire organization aligned. Track milestone progress and regular operational SLA review syncs below.
                     </p>
                   </div>
 
                   {/* VISUAL TIMELINE */}
                   <div className="space-y-6 mb-8">
-                    <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide border-b border-slate-900 pb-2">
+                    <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide border-b border-gray-100 pb-2">
                       Modernization Phases Timeline
                     </h3>
 
-                    <div className="relative border-l border-slate-800 ml-4 space-y-6 pb-2">
+                    <div className="relative border-l border-gray-200 ml-4 space-y-6 pb-2">
                       {roadmap.map((rm) => (
                         <div key={rm.id} className="relative pl-6 group">
                           {/* Indicator dot */}
                           <div className={`absolute -left-[6px] top-1.5 w-3 h-3 rounded-full ${
                             rm.progress === 100 ? 'bg-emerald-500 shadow shadow-emerald-500/50' :
-                            rm.progress > 0 ? 'bg-indigo-500 animate-pulse' : 'bg-slate-800'
+                            rm.progress > 0 ? 'bg-indigo-500 animate-pulse' : 'bg-gray-100'
                           }`} />
 
-                          <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 hover:border-slate-700 transition-all">
+                          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition-all">
                             {editingRoadmapItem === rm.id ? (
                               <div className="space-y-3">
                                 <input
                                   type="text"
                                   value={rm.phase}
                                   onChange={(e) => setRoadmap(roadmap.map(r => r.id === rm.id ? {...r, phase: e.target.value} : r))}
-                                  className="w-full bg-slate-900 border border-slate-800 text-indigo-400 text-[10px] font-mono rounded px-2 py-1"
+                                  className="w-full bg-white border border-gray-200 text-indigo-600 text-[10px] font-mono rounded px-2 py-1"
                                   placeholder="Phase name"
                                 />
                                 <input
                                   type="text"
                                   value={rm.title}
                                   onChange={(e) => setRoadmap(roadmap.map(r => r.id === rm.id ? {...r, title: e.target.value} : r))}
-                                  className="w-full bg-slate-900 border border-slate-800 text-white text-sm font-bold rounded px-2 py-1"
+                                  className="w-full bg-white border border-gray-200 text-gray-900 text-sm font-bold rounded px-2 py-1"
                                   placeholder="Title"
                                 />
                                 <textarea
                                   value={rm.description}
                                   onChange={(e) => setRoadmap(roadmap.map(r => r.id === rm.id ? {...r, description: e.target.value} : r))}
                                   rows={2}
-                                  className="w-full bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded px-2 py-1"
+                                  className="w-full bg-white border border-gray-200 text-gray-600 text-xs rounded px-2 py-1"
                                   placeholder="Description"
                                 />
                                 <div className="flex gap-2">
@@ -1901,7 +1901,7 @@ export default function App() {
                                     type="text"
                                     value={rm.owner}
                                     onChange={(e) => setRoadmap(roadmap.map(r => r.id === rm.id ? {...r, owner: e.target.value} : r))}
-                                    className="flex-1 bg-slate-900 border border-slate-800 text-slate-400 text-[10px] rounded px-2 py-1"
+                                    className="flex-1 bg-white border border-gray-200 text-gray-500 text-[10px] rounded px-2 py-1"
                                     placeholder="Owner"
                                   />
                                   <input
@@ -1910,13 +1910,13 @@ export default function App() {
                                     max="100"
                                     value={rm.progress}
                                     onChange={(e) => setRoadmap(roadmap.map(r => r.id === rm.id ? {...r, progress: parseInt(e.target.value) || 0} : r))}
-                                    className="w-16 bg-slate-900 border border-slate-800 text-cyan-400 text-[10px] rounded px-2 py-1"
+                                    className="w-16 bg-white border border-gray-200 text-cyan-600 text-[10px] rounded px-2 py-1"
                                     placeholder="Progress"
                                   />
                                 </div>
                                 <button
                                   onClick={() => setEditingRoadmapItem(null)}
-                                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-3 py-1 rounded"
+                                  className="bg-emerald-600 hover:bg-emerald-500 text-gray-900 text-[10px] px-3 py-1 rounded"
                                 >
                                   Done
                                 </button>
@@ -1925,26 +1925,26 @@ export default function App() {
                               <>
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                   <div>
-                                    <span className="text-[10px] text-indigo-400 font-mono font-bold block uppercase tracking-wider">
+                                    <span className="text-[10px] text-indigo-600 font-mono font-bold block uppercase tracking-wider">
                                       {rm.phase}
                                     </span>
-                                    <h4 className="text-sm font-bold text-white">{rm.title}</h4>
+                                    <h4 className="text-sm font-bold text-gray-900">{rm.title}</h4>
                                   </div>
                                   <div className="flex items-center gap-2">
                                     <button
                                       onClick={() => setEditingRoadmapItem(rm.id)}
-                                      className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-cyan-400 text-[10px] transition-opacity"
+                                      className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-cyan-600 text-[10px] transition-opacity"
                                     >
                                       ✎ Edit
                                     </button>
-                                    <span className="text-xs text-slate-400 font-medium">Progress:</span>
-                                    <span className="font-mono text-cyan-400 font-bold">{rm.progress}%</span>
+                                    <span className="text-xs text-gray-500 font-medium">Progress:</span>
+                                    <span className="font-mono text-cyan-600 font-bold">{rm.progress}%</span>
                                   </div>
                                 </div>
-                                <p className="text-xs text-slate-300 leading-relaxed mb-3">{rm.description}</p>
-                                <div className="flex justify-between items-center text-[10px] text-slate-500 border-t border-slate-900 pt-2">
+                                <p className="text-xs text-gray-600 leading-relaxed mb-3">{rm.description}</p>
+                                <div className="flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-100 pt-2">
                                   <span>Owner: <strong>{rm.owner}</strong></span>
-                                  <div className="w-24 bg-slate-800 h-1 rounded-full overflow-hidden">
+                                  <div className="w-24 bg-gray-100 h-1 rounded-full overflow-hidden">
                                     <div className="bg-cyan-500 h-full" style={{ width: `${rm.progress}%` }} />
                                   </div>
                                 </div>
@@ -1958,47 +1958,47 @@ export default function App() {
 
                   {/* GOVERNANCE CADENCE */}
                   <div className="space-y-4">
-                    <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide border-b border-slate-900 pb-2">
+                    <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide border-b border-gray-100 pb-2">
                       Operational Alignment Governance Cadence
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {governance.map((gov) => (
-                        <div key={gov.id} className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between group">
+                        <div key={gov.id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between group">
                           {editingGovernanceItem === gov.id ? (
                             <div className="space-y-2">
                               <input
                                 type="text"
                                 value={gov.meeting}
                                 onChange={(e) => setGovernance(governance.map(g => g.id === gov.id ? {...g, meeting: e.target.value} : g))}
-                                className="w-full bg-slate-900 border border-slate-800 text-white text-xs font-bold rounded px-2 py-1"
+                                className="w-full bg-white border border-gray-200 text-gray-900 text-xs font-bold rounded px-2 py-1"
                                 placeholder="Meeting name"
                               />
                               <input
                                 type="text"
                                 value={gov.cadence}
                                 onChange={(e) => setGovernance(governance.map(g => g.id === gov.id ? {...g, cadence: e.target.value} : g))}
-                                className="w-full bg-slate-900 border border-slate-800 text-slate-400 text-[9px] rounded px-2 py-1"
+                                className="w-full bg-white border border-gray-200 text-gray-500 text-[9px] rounded px-2 py-1"
                                 placeholder="Cadence"
                               />
                               <input
                                 type="text"
                                 value={gov.owner}
                                 onChange={(e) => setGovernance(governance.map(g => g.id === gov.id ? {...g, owner: e.target.value} : g))}
-                                className="w-full bg-slate-900 border border-slate-800 text-slate-400 text-[11px] rounded px-2 py-1"
+                                className="w-full bg-white border border-gray-200 text-gray-500 text-[11px] rounded px-2 py-1"
                                 placeholder="Owner"
                               />
                               <select
                                 value={gov.status}
                                 onChange={(e) => setGovernance(governance.map(g => g.id === gov.id ? {...g, status: e.target.value as any} : g))}
-                                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-[9px] rounded px-2 py-1"
+                                className="w-full bg-white border border-gray-200 text-gray-700 text-[9px] rounded px-2 py-1"
                               >
                                 <option value="Active">Active</option>
                                 <option value="Planned">Planned</option>
                               </select>
                               <button
                                 onClick={() => setEditingGovernanceItem(null)}
-                                className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-3 py-1 rounded w-full"
+                                className="bg-emerald-600 hover:bg-emerald-500 text-gray-900 text-[10px] px-3 py-1 rounded w-full"
                               >
                                 Done
                               </button>
@@ -2007,27 +2007,27 @@ export default function App() {
                             <>
                               <div className="space-y-2">
                                 <div className="flex justify-between items-center">
-                                  <span className="text-[9px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded font-bold">
+                                  <span className="text-[9px] bg-white text-gray-500 px-2 py-0.5 rounded font-bold">
                                     {gov.cadence}
                                   </span>
                                   <div className="flex items-center gap-1">
                                     <button
                                       onClick={() => setEditingGovernanceItem(gov.id)}
-                                      className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-cyan-400 text-[10px] transition-opacity"
+                                      className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-cyan-600 text-[10px] transition-opacity"
                                     >
                                       ✎
                                     </button>
                                     <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded ${
-                                      gov.status === 'Active' ? 'bg-emerald-950/20 text-emerald-400 border border-emerald-500/20' : 'bg-slate-900 text-slate-400'
+                                      gov.status === 'Active' ? 'bg-emerald-50/60 text-emerald-600 border border-emerald-400/30' : 'bg-white text-gray-500'
                                     }`}>
                                       {gov.status}
                                     </span>
                                   </div>
                                 </div>
-                                <h4 className="text-xs font-bold text-white">{gov.meeting}</h4>
-                                <p className="text-[11px] text-slate-400">Owner: <strong>{gov.owner}</strong></p>
+                                <h4 className="text-xs font-bold text-gray-900">{gov.meeting}</h4>
+                                <p className="text-[11px] text-gray-500">Owner: <strong>{gov.owner}</strong></p>
                               </div>
-                              <div className="mt-4 pt-2 border-t border-slate-900 text-[10px] text-slate-500">
+                              <div className="mt-4 pt-2 border-t border-gray-100 text-[10px] text-gray-400">
                                 Stakeholders: {gov.stakeholders.join(', ')}
                               </div>
                             </>
@@ -2043,14 +2043,14 @@ export default function App() {
             {/* TAB 8: EXECUTIVE PRESENTATION DECK */}
             {activeTab === 'executive' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-rose-400 uppercase tracking-wider block">Day 90 Deliverable</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-rose-600 uppercase tracking-wider block">Day 90 Deliverable</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         👔 Interactive Executive Transformation Deck
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Select and customize slides on current state assessment, actual achievements, roadmap, and ROI calculations to present to leadership.
                       </p>
                     </div>
@@ -2059,17 +2059,17 @@ export default function App() {
                       <button
                         onClick={() => setCurrentSlideIndex(prev => Math.max(0, prev - 1))}
                         disabled={currentSlideIndex === 0}
-                        className="p-1.5 bg-slate-950 text-slate-300 hover:text-white rounded border border-slate-800 disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
+                        className="p-1.5 bg-gray-50 text-gray-600 hover:text-gray-900 rounded border border-gray-200 disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
                       >
                         Prev Slide
                       </button>
-                      <span className="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1.5 rounded border border-slate-800 font-bold">
+                      <span className="text-xs font-mono text-gray-500 bg-gray-50 px-2 py-1.5 rounded border border-gray-200 font-bold">
                         {currentSlideIndex + 1} / {slidesData.length}
                       </span>
                       <button
                         onClick={() => setCurrentSlideIndex(prev => Math.min(slidesData.length - 1, prev + 1))}
                         disabled={currentSlideIndex === slidesData.length - 1}
-                        className="p-1.5 bg-slate-950 text-slate-300 hover:text-white rounded border border-slate-800 disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
+                        className="p-1.5 bg-gray-50 text-gray-600 hover:text-gray-900 rounded border border-gray-200 disabled:opacity-30 disabled:cursor-not-allowed text-xs font-bold"
                       >
                         Next Slide
                       </button>
@@ -2077,19 +2077,19 @@ export default function App() {
                   </div>
 
                   {/* ACTIVE SLIDE CONTAINER */}
-                  <div className="bg-slate-950 p-6 rounded-xl border-2 border-slate-800 relative overflow-hidden min-h-[350px] flex flex-col justify-between">
+                  <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200 relative overflow-hidden min-h-[350px] flex flex-col justify-between">
                     <div className="absolute top-0 right-0 w-44 h-44 bg-rose-500/5 rounded-full blur-3xl pointer-events-none" />
 
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center border-b border-slate-900 pb-3">
+                      <div className="flex justify-between items-center border-b border-gray-100 pb-3">
                         <div>
-                          <span className="text-[10px] text-rose-400 font-mono font-bold uppercase tracking-widest block">
+                          <span className="text-[10px] text-rose-600 font-mono font-bold uppercase tracking-widest block">
                             AIOps EXECUTIVE BRIEFING
                           </span>
-                          <h3 className="text-lg font-black text-white">{slidesData[currentSlideIndex].title}</h3>
-                          <p className="text-xs text-slate-400 italic mt-0.5">{slidesData[currentSlideIndex].subtitle}</p>
+                          <h3 className="text-lg font-black text-gray-900">{slidesData[currentSlideIndex].title}</h3>
+                          <p className="text-xs text-gray-500 italic mt-0.5">{slidesData[currentSlideIndex].subtitle}</p>
                         </div>
-                        <span className="text-xs text-emerald-400 font-bold font-mono">
+                        <span className="text-xs text-emerald-700 font-bold font-mono">
                           Day 90 Presenter Mode
                         </span>
                       </div>
@@ -2097,7 +2097,7 @@ export default function App() {
                       {/* SLIDE BULLETS */}
                       <div className="space-y-2">
                         {slidesData[currentSlideIndex].bullets.map((bullet, idx) => (
-                          <div key={idx} className="flex gap-2 items-start text-xs text-slate-300">
+                          <div key={idx} className="flex gap-2 items-start text-xs text-gray-600">
                             <div className="text-rose-500 font-black shrink-0 mt-0.5">▪</div>
                             <div className="flex-1">
                               {editingSlideText === `${currentSlideIndex}-${idx}` ? (
@@ -2106,11 +2106,11 @@ export default function App() {
                                     type="text"
                                     value={bullet}
                                     onChange={(e) => handleUpdateSlideBullet(slidesData[currentSlideIndex].id, idx, e.target.value)}
-                                    className="flex-1 bg-slate-900 border border-slate-700 text-white rounded px-2 py-1 text-xs focus:outline-none focus:border-rose-500"
+                                    className="flex-1 bg-white border border-gray-300 text-gray-900 rounded px-2 py-1 text-xs focus:outline-none focus:border-rose-400"
                                   />
                                   <button
                                     onClick={() => setEditingSlideText(null)}
-                                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] font-bold"
+                                    className="bg-emerald-600 hover:bg-emerald-500 text-gray-900 px-2 py-0.5 rounded text-[10px] font-bold"
                                   >
                                     Done
                                   </button>
@@ -2120,7 +2120,7 @@ export default function App() {
                                   <span>{bullet}</span>
                                   <button
                                     onClick={() => setEditingSlideText(`${currentSlideIndex}-${idx}`)}
-                                    className="text-[9px] text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition-all font-semibold"
+                                    className="text-[9px] text-gray-400 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-all font-semibold"
                                   >
                                     [Edit Bullet]
                                   </button>
@@ -2133,16 +2133,16 @@ export default function App() {
                     </div>
 
                     {/* SLIDE FOOTER AND CHARTS */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-4 border-t border-slate-900">
-                      <div className="bg-slate-900/40 p-3 rounded-lg border border-slate-900 flex flex-col justify-between">
-                        <span className="text-[10px] text-slate-500 uppercase font-mono tracking-wider">Executive Takeaway Callout:</span>
-                        <p className="text-xs text-slate-300 leading-relaxed italic mt-1">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-4 border-t border-gray-100">
+                      <div className="bg-gray-50/60 p-3 rounded-lg border border-gray-100 flex flex-col justify-between">
+                        <span className="text-[10px] text-gray-400 uppercase font-mono tracking-wider">Executive Takeaway Callout:</span>
+                        <p className="text-xs text-gray-600 leading-relaxed italic mt-1">
                           "{slidesData[currentSlideIndex].callout}"
                         </p>
                       </div>
 
-                      <div className="bg-slate-900/40 p-3 rounded-lg border border-slate-900 flex flex-col justify-between">
-                        <span className="text-[10px] text-slate-500 uppercase font-mono tracking-wider">
+                      <div className="bg-gray-50/60 p-3 rounded-lg border border-gray-100 flex flex-col justify-between">
+                        <span className="text-[10px] text-gray-400 uppercase font-mono tracking-wider">
                           {slidesData[currentSlideIndex].chartLabel}
                         </span>
 
@@ -2152,14 +2152,14 @@ export default function App() {
                             const heightPct = maxVal > 0 ? (d.value / maxVal) * 100 : 0;
                             return (
                               <div key={index} className="flex-1 flex flex-col items-center">
-                                <div className="text-[9px] text-slate-400 font-mono">{d.value}</div>
-                                <div className="w-full bg-slate-850 h-8 rounded-t relative overflow-hidden">
+                                <div className="text-[9px] text-gray-500 font-mono">{d.value}</div>
+                                <div className="w-full bg-gray-100 h-8 rounded-t relative overflow-hidden">
                                   <div
                                     className="absolute bottom-0 w-full bg-rose-500/70"
                                     style={{ height: `${Math.max(10, heightPct)}%` }}
                                   />
                                 </div>
-                                <span className="text-[8px] text-slate-500 mt-1 truncate max-w-[50px]">{d.name}</span>
+                                <span className="text-[8px] text-gray-400 mt-1 truncate max-w-[50px]">{d.name}</span>
                               </div>
                             );
                           })}
@@ -2169,11 +2169,11 @@ export default function App() {
                   </div>
 
                   {/* CUSTOM EXECUTIVE PRESENTATION REPORT */}
-                  <div className="bg-rose-950/20 border border-rose-900/40 p-4 rounded-xl mt-6">
-                    <h4 className="text-xs font-bold text-rose-400 uppercase tracking-widest flex items-center gap-1.5 mb-1">
-                      <Zap className="w-4 h-4 fill-rose-400" /> Executive Presentation Tips
+                  <div className="bg-rose-50/60 border border-rose-200 p-4 rounded-xl mt-6">
+                    <h4 className="text-xs font-bold text-rose-600 uppercase tracking-widest flex items-center gap-1.5 mb-1">
+                      <Zap className="w-4 h-4 fill-rose-600" /> Executive Presentation Tips
                     </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-xs text-gray-600 leading-relaxed">
                       Executives evaluate communication and ROI clarity during the Day 90 review. Focus heavily on how reducing MTTD and MTTR has translated into prevented retail order drops, cloud cost savings from SolarWinds consolidation, and reduced team burnout.
                     </p>
                   </div>
@@ -2184,14 +2184,14 @@ export default function App() {
             {/* TAB 9: AI STACK ARCHITECTURE */}
             {activeTab === 'aistack' && (
               <div className="space-y-6">
-                <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                <div className="bg-white p-6 rounded-2xl border border-gray-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                     <div>
-                      <span className="text-xs font-mono text-purple-400 uppercase tracking-wider block">ML/MLOps Infrastructure</span>
-                      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span className="text-xs font-mono text-purple-600 uppercase tracking-wider block">ML/MLOps Infrastructure</span>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         🧠 AI Stack Architecture by Use Case
                       </h2>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-gray-500 text-sm mt-1">
                         Capture and map your AI/ML infrastructure stack across 10 layers and 15+ use cases. Plan current state, target architecture, and technology gaps.
                       </p>
                     </div>
@@ -2199,7 +2199,7 @@ export default function App() {
                       <button
                         onClick={() => setAiStackViewMode('byUseCase')}
                         className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                          aiStackViewMode === 'byUseCase' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                          aiStackViewMode === 'byUseCase' ? 'bg-purple-600 text-gray-900' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
                         By Use Case
@@ -2207,7 +2207,7 @@ export default function App() {
                       <button
                         onClick={() => setAiStackViewMode('byLayer')}
                         className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                          aiStackViewMode === 'byLayer' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                          aiStackViewMode === 'byLayer' ? 'bg-purple-600 text-gray-900' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
                         By Layer
@@ -2215,7 +2215,7 @@ export default function App() {
                       <button
                         onClick={() => setAiStackViewMode('matrix')}
                         className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                          aiStackViewMode === 'matrix' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                          aiStackViewMode === 'matrix' ? 'bg-purple-600 text-gray-900' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
                         Matrix View
@@ -2224,18 +2224,18 @@ export default function App() {
                   </div>
 
                   {/* AI Stack Capture Form */}
-                  <div className="bg-slate-950 p-5 rounded-xl border border-slate-800/80 mb-6">
-                    <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-4 flex items-center gap-1">
-                      <Plus className="w-4 h-4 text-purple-400" /> Capture AI Stack Component
+                  <div className="bg-gray-50 p-5 rounded-xl border border-gray-200/80 mb-6">
+                    <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide mb-4 flex items-center gap-1">
+                      <Plus className="w-4 h-4 text-purple-600" /> Capture AI Stack Component
                     </h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Use Case</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Use Case</label>
                         <select
                           value={selectedUseCase}
                           onChange={(e) => setSelectedUseCase(e.target.value as AIUseCaseType)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         >
                           {aiUseCases.map(uc => (
                             <option key={uc.value} value={uc.value}>{uc.label}</option>
@@ -2244,11 +2244,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Technology Layer</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Technology Layer</label>
                         <select
                           value={selectedLayer}
                           onChange={(e) => setSelectedLayer(e.target.value as AILayer)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         >
                           {aiLayers.map(layer => (
                             <option key={layer.value} value={layer.value}>{layer.label}</option>
@@ -2257,11 +2257,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Component</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Component</label>
                         <select
                           value={selectedComponentId}
                           onChange={(e) => setSelectedComponentId(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         >
                           <option value="">Select a component...</option>
                           {aiStackViewMode === 'byUseCase' 
@@ -2276,11 +2276,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Status</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Status</label>
                         <select
                           value={stackStatus}
                           onChange={(e) => setStackStatus(e.target.value as any)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         >
                           <option value="Current">Current State</option>
                           <option value="Target">Target Architecture</option>
@@ -2292,29 +2292,29 @@ export default function App() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Owner/Team</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Owner/Team</label>
                         <input
                           type="text"
                           placeholder="e.g. ML Platform Team"
                           value={stackOwner}
                           onChange={(e) => setStackOwner(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Monthly Cost ($)</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Monthly Cost ($)</label>
                         <input
                           type="number"
                           placeholder="e.g. 5000"
                           value={stackCost}
                           onChange={(e) => setStackCost(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Utilization %</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1">Utilization %</label>
                         <input
                           type="number"
                           min="0"
@@ -2322,19 +2322,19 @@ export default function App() {
                           placeholder="e.g. 75"
                           value={stackUtilization}
                           onChange={(e) => setStackUtilization(e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                         />
                       </div>
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Notes & Architecture Decisions</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">Notes & Architecture Decisions</label>
                       <textarea
                         rows={2}
                         placeholder="Document why this technology was chosen, integration points, known limitations..."
                         value={stackNotes}
                         onChange={(e) => setStackNotes(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:border-purple-400"
                       />
                     </div>
 
@@ -2347,7 +2347,7 @@ export default function App() {
                           setStackCost('');
                           setStackUtilization('');
                         }}
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-lg transition-all"
+                        className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold px-4 py-2 rounded-lg transition-all"
                       >
                         Clear Form
                       </button>
@@ -2373,7 +2373,7 @@ export default function App() {
                           setStackUtilization('');
                         }}
                         disabled={!selectedComponentId}
-                        className="bg-purple-600 hover:bg-purple-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all"
+                        className="bg-purple-600 hover:bg-purple-500 disabled:bg-gray-100 disabled:text-gray-400 text-gray-900 text-xs font-bold px-4 py-2 rounded-lg transition-all"
                       >
                         Add to Stack Architecture
                       </button>
@@ -2384,7 +2384,7 @@ export default function App() {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left: Component Browser */}
                     <div className="lg:col-span-2 space-y-4">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">
                         {aiStackViewMode === 'byUseCase' 
                           ? `Recommended Stack for ${aiUseCases.find(uc => uc.value === selectedUseCase)?.label}`
                           : `Components in ${aiLayers.find(l => l.value === selectedLayer)?.label}`
@@ -2403,25 +2403,25 @@ export default function App() {
                               onClick={() => setSelectedComponentId(component.id)}
                               className={`p-3 rounded-lg border cursor-pointer transition-all ${
                               isSelected 
-                                ? 'bg-purple-950/30 border-purple-500/50' 
-                                : 'bg-slate-950 border-slate-800 hover:border-slate-700'
-                              } ${selectedComponentId === component.id ? 'ring-2 ring-purple-500/50' : ''}`}
+                                ? 'bg-purple-50 border-purple-500/50' 
+                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                              } ${selectedComponentId === component.id ? 'ring-2 ring-purple-400/50' : ''}`}
                             >
                               <div className="flex justify-between items-start mb-2">
-                                <div className="text-xs font-bold text-white">{component.name}</div>
+                                <div className="text-xs font-bold text-gray-900">{component.name}</div>
                                 <span className={`text-[9px] px-1.5 py-0.5 rounded font-semibold ${
-                                component.maturity === 'Enterprise' ? 'bg-emerald-950/40 text-emerald-400' :
-                                component.maturity === 'Growth' ? 'bg-cyan-950/40 text-cyan-400' :
-                                'bg-amber-950/40 text-amber-400'
+                                component.maturity === 'Enterprise' ? 'bg-emerald-50/40 text-emerald-600' :
+                                component.maturity === 'Growth' ? 'bg-cyan-50 text-cyan-600' :
+                                'bg-amber-50 text-amber-600'
                                 }`}>
                                 {component.maturity}
                                 </span>
                               </div>
-                              <div className="text-[10px] text-slate-400 mb-1">{component.vendor} • {component.category}</div>
-                              <p className="text-[10px] text-slate-500 line-clamp-2">{component.description}</p>
+                              <div className="text-[10px] text-gray-500 mb-1">{component.vendor} • {component.category}</div>
+                              <p className="text-[10px] text-gray-400 line-clamp-2">{component.description}</p>
                               <div className="flex gap-1 mt-2 flex-wrap">
                                 {component.useCases.slice(0, 3).map(uc => (
-                                  <span key={uc} className="text-[8px] bg-slate-900 text-slate-400 px-1.5 py-0.5 rounded">
+                                  <span key={uc} className="text-[8px] bg-white text-gray-500 px-1.5 py-0.5 rounded">
                                     {uc.replace(/([A-Z])/g, ' $1').trim()}
                                   </span>
                                 ))}
@@ -2434,14 +2434,14 @@ export default function App() {
 
                     {/* Right: Captured Stack Summary */}
                     <div className="space-y-4">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">
                         Captured Stack Summary ({capturedStacks.length} components)
                       </h3>
                       
                       {capturedStacks.length === 0 ? (
-                        <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 text-center">
-                          <p className="text-xs text-slate-500">No components captured yet.</p>
-                          <p className="text-[10px] text-slate-600 mt-1">Select use case, layer, and components to build your AI stack architecture.</p>
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center">
+                          <p className="text-xs text-gray-400">No components captured yet.</p>
+                          <p className="text-[10px] text-gray-400 mt-1">Select use case, layer, and components to build your AI stack architecture.</p>
                         </div>
                       ) : (
                         <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2">
@@ -2449,36 +2449,36 @@ export default function App() {
                             const component = aiStackComponents.find(c => c.id === stack.componentId);
                             if (!component) return null;
                             return (
-                              <div key={stack.id} className="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                              <div key={stack.id} className="bg-gray-50 p-3 rounded-lg border border-gray-200">
                                 <div className="flex justify-between items-start">
-                                  <div className="text-xs font-bold text-white">{component.name}</div>
+                                  <div className="text-xs font-bold text-gray-900">{component.name}</div>
                                   <button
                                     onClick={() => setCapturedStacks(capturedStacks.filter(s => s.id !== stack.id))}
-                                    className="text-slate-500 hover:text-rose-400"
+                                    className="text-gray-400 hover:text-rose-600"
                                   >
                                     <Trash2 className="w-3 h-3" />
                                   </button>
                                 </div>
-                                <div className="text-[10px] text-slate-400 mt-1">
+                                <div className="text-[10px] text-gray-500 mt-1">
                                   {aiUseCases.find(uc => uc.value === stack.useCase)?.label.split(' - ')[0]} • {aiLayers.find(l => l.value === stack.layer)?.label.split(' ')[0]}
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                   <span className={`text-[9px] px-1.5 py-0.5 rounded ${
-                                  stack.status === 'Current' ? 'bg-emerald-950/40 text-emerald-400' :
-                                  stack.status === 'Target' ? 'bg-purple-950/40 text-purple-400' :
-                                  stack.status === 'Evaluating' ? 'bg-cyan-950/40 text-cyan-400' :
-                                  'bg-rose-950/40 text-rose-400'
+                                  stack.status === 'Current' ? 'bg-emerald-50/40 text-emerald-600' :
+                                  stack.status === 'Target' ? 'bg-purple-50 text-purple-600' :
+                                  stack.status === 'Evaluating' ? 'bg-cyan-50 text-cyan-600' :
+                                  'bg-rose-50 text-rose-600'
                                   }`}>
                                   {stack.status}
                                   </span>
                                   {stack.utilizationPercent && (
-                                    <span className="text-[9px] bg-slate-900 text-slate-400 px-1.5 py-0.5 rounded">
+                                    <span className="text-[9px] bg-white text-gray-500 px-1.5 py-0.5 rounded">
                                     {stack.utilizationPercent}% util
                                     </span>
                                   )}
                                 </div>
                                 {stack.notes && (
-                                  <p className="text-[10px] text-slate-500 mt-2 italic">"{stack.notes}"</p>
+                                  <p className="text-[10px] text-gray-400 mt-2 italic">"{stack.notes}"</p>
                                 )}
                               </div>
                             );
@@ -2487,30 +2487,30 @@ export default function App() {
                       )}
 
                       {capturedStacks.length > 0 && (
-                        <div className="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                          <div className="text-xs font-semibold text-slate-300 mb-2">Stack Statistics</div>
+                        <div className="bg-white p-3 rounded-lg border border-gray-200">
+                          <div className="text-xs font-semibold text-gray-600 mb-2">Stack Statistics</div>
                           <div className="space-y-1 text-[10px]">
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Total Monthly Cost:</span>
-                              <span className="text-emerald-400 font-mono">
+                              <span className="text-gray-400">Total Monthly Cost:</span>
+                              <span className="text-emerald-600 font-mono">
                               ${capturedStacks.reduce((sum, s) => sum + (s.costPerMonth || 0), 0).toLocaleString()}
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Current State:</span>
-                              <span className="text-white font-mono">
+                              <span className="text-gray-400">Current State:</span>
+                              <span className="text-gray-900 font-mono">
                               {capturedStacks.filter(s => s.status === 'Current').length} components
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Target State:</span>
-                              <span className="text-purple-400 font-mono">
+                              <span className="text-gray-400">Target State:</span>
+                              <span className="text-purple-600 font-mono">
                               {capturedStacks.filter(s => s.status === 'Target').length} components
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Avg Utilization:</span>
-                              <span className="text-cyan-400 font-mono">
+                              <span className="text-gray-400">Avg Utilization:</span>
+                              <span className="text-cyan-600 font-mono">
                               {Math.round(capturedStacks.reduce((sum, s) => sum + (s.utilizationPercent || 0), 0) / (capturedStacks.filter(s => s.utilizationPercent).length || 1))}%
                               </span>
                             </div>
@@ -2522,17 +2522,17 @@ export default function App() {
 
                   {/* Layer Coverage Matrix */}
                   {aiStackViewMode === 'matrix' && (
-                    <div className="mt-6 bg-slate-950 p-4 rounded-xl border border-slate-800">
-                      <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide mb-4">
+                    <div className="mt-6 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                      <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide mb-4">
                         AI Stack Coverage Matrix
                       </h3>
                       <div className="overflow-x-auto">
                         <table className="w-full text-xs">
                           <thead>
-                            <tr className="border-b border-slate-800">
-                              <th className="text-left py-2 px-3 text-slate-400 font-semibold">Use Case</th>
+                            <tr className="border-b border-gray-200">
+                              <th className="text-left py-2 px-3 text-gray-500 font-semibold">Use Case</th>
                               {aiLayers.map(layer => (
-                                <th key={layer.value} className="text-center py-2 px-2 text-slate-400 font-semibold text-[10px]">
+                                <th key={layer.value} className="text-center py-2 px-2 text-gray-500 font-semibold text-[10px]">
                                   {layer.label.split(' ')[0]}
                                 </th>
                               ))}
@@ -2540,8 +2540,8 @@ export default function App() {
                           </thead>
                           <tbody>
                             {aiUseCases.slice(0, 8).map((useCase) => (
-                              <tr key={useCase.value} className="border-b border-slate-900">
-                                <td className="py-2 px-3 text-slate-300 font-medium">{useCase.label.split(' - ')[0]}</td>
+                              <tr key={useCase.value} className="border-b border-gray-100">
+                                <td className="py-2 px-3 text-gray-600 font-medium">{useCase.label.split(' - ')[0]}</td>
                                 {aiLayers.map(layer => {
                                   const count = capturedStacks.filter(
                                     s => s.useCase === useCase.value && s.layer === layer.value
@@ -2549,11 +2549,11 @@ export default function App() {
                                   return (
                                     <td key={layer.value} className="text-center py-2 px-2">
                                       {count > 0 ? (
-                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-[10px] font-bold">
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-500/20 text-purple-600 text-[10px] font-bold">
                                           {count}
                                         </span>
                                       ) : (
-                                        <span className="inline-block w-2 h-2 rounded-full bg-slate-800"></span>
+                                        <span className="inline-block w-2 h-2 rounded-full bg-gray-100"></span>
                                       )}
                                     </td>
                                   );
@@ -2567,11 +2567,11 @@ export default function App() {
                   )}
 
                   {/* Technology Recommendations */}
-                  <div className="mt-6 bg-purple-950/20 border border-purple-900/40 p-4 rounded-xl">
-                    <h4 className="text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                  <div className="mt-6 bg-purple-50/60 border border-purple-200 p-4 rounded-xl">
+                    <h4 className="text-xs font-bold text-purple-600 uppercase tracking-widest flex items-center gap-1.5 mb-2">
                       <Brain className="w-4 h-4" /> AI Stack Architecture Recommendations
                     </h4>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-xs text-gray-600 leading-relaxed">
                       Based on your selected use case <strong>{aiUseCases.find(uc => uc.value === selectedUseCase)?.label}</strong>, 
                       we recommend establishing components across {(aiStackViewMode === 'byUseCase' ? getComponentsByUseCase(selectedUseCase) : getComponentsByLayer(selectedLayer)).length} available technologies. 
                       Key focus areas: Start with <strong>Data Engineering</strong> and <strong>Experiment Tracking</strong> foundations, 
@@ -2588,7 +2588,7 @@ export default function App() {
       </main>
 
       {/* FOOTER - MINIMAL */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-600 mt-12">
+      <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-400 mt-12">
         <div className="max-w-7xl mx-auto px-4">
           <p>{programTitle} {programSubtitle}</p>
         </div>
